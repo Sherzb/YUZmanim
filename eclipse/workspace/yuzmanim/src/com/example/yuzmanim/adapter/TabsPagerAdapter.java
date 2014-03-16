@@ -8,6 +8,13 @@ import com.example.yuzmanim.MaarivFragment;
 import com.example.yuzmanim.MinchaFragment;
 import com.example.yuzmanim.ShacharisFragment;
 
+/**
+ * The adapter for YUZmanim. FragmentPagerAdapter seems to be the standard when using tabs. Furthermore, since each tab
+ * will be storing a minimal amount of data (just some text fields), the memory overhead is minimal. See BNRG pgs 204-209.
+ * @author Shmuel
+ *
+ */
+
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 	 
     public TabsPagerAdapter(FragmentManager fm) {
@@ -19,13 +26,13 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
  
         switch (index) {
         case 0:
-            // Top Shacharis fragment activity
+            // Shacharis activity
             return new ShacharisFragment();
         case 1:
-            // Games fragment activity
+            // Mincha activity
             return new MinchaFragment();
         case 2:
-            // Movies fragment activity
+            // Maariv fragment activity
             return new MaarivFragment();
         }
  
