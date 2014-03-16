@@ -39,7 +39,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		viewPager.setAdapter(mAdapter);			//Basically enables the swiping      
 
-		actionBar.setHomeButtonEnabled(false);  //Disables the HomeButton in the corner of the ActionBar
+		//actionBar.setDisplayShowHomeEnabled(false);    //Hide ActionBar but show tabs- Gets rid of the logo
+		actionBar.setDisplayShowTitleEnabled(false);   //Hide ActionBar but show tabs- Gets rid of "YUZmanim"
+		//actionBar.setHomeButtonEnabled(false);  //Disables the HomeButton in the corner of the ActionBar
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);     
 
 		// Adding Tabs to the ActionBar (so now we don't have to use a different element to host tabs, like TabHost)
