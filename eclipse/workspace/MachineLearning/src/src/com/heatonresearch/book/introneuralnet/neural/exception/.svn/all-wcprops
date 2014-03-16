@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural/exception
+END
+NeuralNetworkError.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural/exception/NeuralNetworkError.java
+END
+MatrixError.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural/exception/MatrixError.java
+END

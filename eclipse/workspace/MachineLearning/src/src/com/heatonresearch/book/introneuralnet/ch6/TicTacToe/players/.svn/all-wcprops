@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch6/TicTacToe/players
+END
+PlayerHuman.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch6/TicTacToe/players/PlayerHuman.java
+END
+PlayerLogic.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch6/TicTacToe/players/PlayerLogic.java
+END
+Player.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch6/TicTacToe/players/Player.java
+END
+PlayerBoring.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch6/TicTacToe/players/PlayerBoring.java
+END
+PlayerRandom.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch6/TicTacToe/players/PlayerRandom.java
+END

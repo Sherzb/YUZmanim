@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/!svn/ver/24/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural/activation
+END
+ActivationFunction.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural/activation/ActivationFunction.java
+END
+ActivationLinear.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural/activation/ActivationLinear.java
+END
+ActivationTANH.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/!svn/ver/24/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural/activation/ActivationTANH.java
+END
+ActivationSigmoid.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/!svn/ver/24/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural/activation/ActivationSigmoid.java
+END

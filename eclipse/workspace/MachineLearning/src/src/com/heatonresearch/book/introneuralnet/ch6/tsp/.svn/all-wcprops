@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch6/tsp
+END
+TSPChromosome.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch6/tsp/TSPChromosome.java
+END
+WorldMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch6/tsp/WorldMap.java
+END
+City.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch6/tsp/City.java
+END
+TSPGeneticAlgorithm.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch6/tsp/TSPGeneticAlgorithm.java
+END
+GeneticTravelingSalesman.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch6/tsp/GeneticTravelingSalesman.java
+END

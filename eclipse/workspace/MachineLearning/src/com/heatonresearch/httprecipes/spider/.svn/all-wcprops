@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/spider
+END
+SpiderWorker.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/spider/SpiderWorker.java
+END
+SpiderInputStream.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/spider/SpiderInputStream.java
+END
+SpiderOptions.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/spider/SpiderOptions.java
+END
+SimpleReport.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/spider/SimpleReport.java
+END
+SpiderException.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/spider/SpiderException.java
+END
+Spider.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/spider/Spider.java
+END
+SpiderParseHTML.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/spider/SpiderParseHTML.java
+END
+SpiderReportable.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/spider/SpiderReportable.java
+END

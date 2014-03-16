@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch7/tsp
+END
+WorldMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch7/tsp/WorldMap.java
+END
+City.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch7/tsp/City.java
+END
+TSPSimulatedAnnealing.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch7/tsp/TSPSimulatedAnnealing.java
+END
+AnnealTravelingSalesman.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/ch7/tsp/AnnealTravelingSalesman.java
+END

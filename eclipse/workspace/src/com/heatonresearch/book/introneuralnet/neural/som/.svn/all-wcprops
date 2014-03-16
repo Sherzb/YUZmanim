@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural/som
+END
+SelfOrganizingMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural/som/SelfOrganizingMap.java
+END
+NormalizeInput.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural/som/NormalizeInput.java
+END
+TrainSelfOrganizingMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural/som/TrainSelfOrganizingMap.java
+END

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/html
+END
+ParseHTML.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/html/ParseHTML.java
+END
+HTMLTag.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/html/HTMLTag.java
+END
+PeekableInputStream.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/html/PeekableInputStream.java
+END
+URLUtility.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/html/URLUtility.java
+END
+FormUtility.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/html/FormUtility.java
+END
+CookieUtility.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/!svn/ver/9/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/httprecipes/html/CookieUtility.java
+END

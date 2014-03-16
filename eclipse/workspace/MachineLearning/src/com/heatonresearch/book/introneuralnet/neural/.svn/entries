@@ -1,0 +1,58 @@
+10
+
+dir
+41
+https://jeffheaton-bookcode.googlecode.com/svn/trunk/JavaIntroNeuralNetworkEdition2/src/com/heatonresearch/book/introneuralnet/neural
+https://jeffheaton-bookcode.googlecode.com/svn
+
+
+
+2009-10-28T21:13:36.302372Z
+41
+jeffheatondotcom
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+47c277be-6e54-0410-88cb-cb95d5a92c88
+
+activation
+dir
+
+matrix
+dir
+
+feedforward
+dir
+
+prune
+dir
+
+hopfield
+dir
+
+util
+dir
+
+anneal
+dir
+
+exception
+dir
+
+genetic
+dir
+
+som
+dir
+
