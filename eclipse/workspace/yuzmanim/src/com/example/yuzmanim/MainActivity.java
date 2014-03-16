@@ -9,6 +9,13 @@ import android.support.v4.view.ViewPager;
 
 import com.example.yuzmanim.adapter.TabsPagerAdapter;
 
+/**
+ * The YUZmanim app. The framework for the swiping and tabbing (before being modified) was obtained from this website:
+ * http://www.androidhive.info/2013/10/android-tab-layout-with-swipeable-views-1/
+ * @author Ariel Schreier and Steven Herzberg
+ *
+ */
+
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener
 {
 	//Viewpager is used to switch between screen with swiping.
@@ -18,7 +25,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	//The ActionBar at the top of the app
 	private ActionBar actionBar;
 	// Tab titles
-	private String[] tabs = { "Shacharis", "Mincha", "Maariv" };
+	private String[] tabs = { "Home", "Shacharis", "Mincha", "Maariv", "Other" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,21 +43,20 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);     
 
 		// Adding Tabs to the ActionBar (so now we don't have to use a different element to host tabs, like TabHost)
-		//ADD ALL THIS BACK TOO!!!
-		//for (String tab_name : tabs) {
-			//actionBar.addTab(  actionBar.newTab().setText(tab_name).setTabListener(this)   );
-		//}
+		for (String tab_name : tabs) {
+			actionBar.addTab(  actionBar.newTab().setText(tab_name).setTabListener(this)   );
+		}
 	}
 
-	//The next 3 methods are required by TabListener, which was implemented to add tabs to the ActionBar. The only one
-	//we care to implement is onTabSelected, which lets us switch between views via the tabs (before we could only switch
-	//via swiping
+	//The next 3 methods are required by TabListener, which was implemented to add tabs to the ActionBar.
+	//The first lets us switch between views via the tabs (before we could only switch via swiping). The second we
+	//don't care about. The third changes which tab is selected when changing the views via swiping
+	//
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		//Sets the view to the position where the tab is
-		//ADD THIS BACK!!
-		//viewPager.setCurrentItem(tab.getPosition());
+		viewPager.setCurrentItem(tab.getPosition());
 	}
 
 	@Override
@@ -60,18 +66,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 
-		/**
-		 * on swiping the viewpager make respective tab selected
-		 * */
+		//Changes which tab is selected when changing the views via swiping
 		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
 			@Override
 			public void onPageSelected(int position) {
-				// on changing the page
-				// make respected tab selected
-				
-				//ADD THIS BACK!
-				//actionBar.setSelectedNavigationItem(position);
+				actionBar.setSelectedNavigationItem(position);
 			}
 
 			@Override

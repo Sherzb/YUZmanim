@@ -4,8 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.yuzmanim.HomeFragment;
 import com.example.yuzmanim.MaarivFragment;
 import com.example.yuzmanim.MinchaFragment;
+import com.example.yuzmanim.OtherFragment;
 import com.example.yuzmanim.ShacharisFragment;
 
 /**
@@ -25,15 +27,21 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int index) {
  
         switch (index) {
-        case 0:
-            // Shacharis activity
-            return new ShacharisFragment();
+        case 0: 
+        	//The home fragment activity
+        	return new HomeFragment();
         case 1:
-            // Mincha activity
-            return new MinchaFragment();
+            // Shacharis fragment activity
+            return new ShacharisFragment();
         case 2:
+            // Mincha fragment activity
+            return new MinchaFragment();
+        case 3:
             // Maariv fragment activity
             return new MaarivFragment();
+        case 4:
+        	//The other fragment activity
+        	return new OtherFragment();
         }
  
         return null;
@@ -42,7 +50,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // get item count - equal to number of tabs
-        return 3;
+        return 5;
     }
  
 }
