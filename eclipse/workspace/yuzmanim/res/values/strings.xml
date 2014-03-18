@@ -2,5 +2,6 @@
 
     <string name="app_name">YUZmanim</string>
     <string name="action_settings">So the menu doesnt explode</string>
+    <string name="welcome_string">Welcome to the YUZmanim app!</string>
 
 </resources>

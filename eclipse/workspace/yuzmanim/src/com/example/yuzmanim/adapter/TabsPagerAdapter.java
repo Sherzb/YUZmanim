@@ -40,7 +40,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             // Maariv fragment activity
             return new MaarivFragment();
         case 4:
-        	//The other fragment activity
         	return new OtherFragment();
         }
  
@@ -49,7 +48,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
  
     @Override
     public int getCount() {
-        // get item count - equal to number of tabs
+        // get Item count - equal to number of tabs
         return 5;
     }
  
