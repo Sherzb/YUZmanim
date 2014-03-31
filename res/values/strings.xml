@@ -1,10 +1,10 @@
 <resources>
 
     <string name="app_name">YUZmanim</string>
-    <string name="action_settings">So the menu doesnt explode</string>
-    <string name="welcome_string">Welcome to the YUZmanim app!</string>
+    <string name="action_settings">So the menu will not explode</string>
+    <string name="welcome_string">Welcome to the YUZmanim app!\nHave \na \nblast!</string>
     <string name="shabbos_schedule">http://www.yu.edu/uploadedFiles/Student_Life/
         Living-at-YU/Shabbat-Programming/Wilf_Campus/Tzav-Zachor%202014.pdf</string>
-    <string name="last_mincha">Last Mincha: 6:45 P.M.</string>
+    <string name="last_mincha">Last Mincha\n 6:45 P.M.</string>
         
 </resources>
