@@ -5,6 +5,7 @@
     <string name="welcome_string">Welcome to the YUZmanim app!\nHave \na \nblast!</string>
     <string name="shabbos_schedule">http://www.yu.edu/uploadedFiles/Student_Life/
         Living-at-YU/Shabbat-Programming/Wilf_Campus/Tzav-Zachor%202014.pdf</string>
-    <string name="last_mincha">Last Mincha\n 6:45 P.M.</string>
+    <string name="next_mincha">Next Mincha\n6:45 P.M.</string>
+    <string name="last_minyan">The last Mincha will be at\n10:00 P.M.</string>
         
 </resources>
