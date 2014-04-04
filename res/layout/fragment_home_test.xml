@@ -9,101 +9,128 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_corner_bg"
         android:gravity="center"
         android:text="YUZmanim"
-        android:textSize="40sp" />
+        android:textSize="40sp" 
+        android:textColor="#FFFFFF"/>
 
-    <TextView
-        android:id="@+id/nextMinyan_textView"
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:id="@+id/nextMinyan_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/yuzmanim_textView"
-        android:layout_marginTop="18dp"
-        android:gravity="center"
-        android:text="Next Minyan At"
-        android:textSize="35sp" />
+        android:background="@drawable/rounded_corner_bg"
+        android:layout_marginTop="10dp"> >
 
-    <TextView
-        android:id="@+id/time1_textView"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/nextMinyan_textView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:text="Next Minyan At"
+            android:textSize="35sp"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/time1_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nextMinyan_textView"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="2:30"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/info1_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nextMinyan_textView"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/time1_textView"
+            android:gravity="center"
+            android:text="(Mincha) Glueck Beis"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/time2_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time1_textView"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="2:33"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/info2_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/info1_textView"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/time2_textView"
+            android:gravity="center"
+            android:text="(Mincha) Room 101"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/finalMinyan_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nextMinyan_textView"
-        android:layout_marginLeft="15dp"
+        android:layout_below="@id/nextMinyan_layout" 
+        android:background="@drawable/rounded_corner_bg"
         android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="2:30"
-        android:textSize="24sp" />
+        >
 
-    <TextView
-        android:id="@+id/info1_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/nextMinyan_textView"
-        android:layout_marginLeft="17dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/time1_textView"
-        android:gravity="center"
-        android:text="(Mincha) Glueck Beis"
-        android:textSize="24sp" />
+        <TextView
+            android:id="@+id/lastMinyan_textView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="Last Minyan at"
+            android:textSize="35sp"
+            android:textColor="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/time2_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/time1_textView"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:text="2:33"
-        android:textSize="24sp" />
+        <TextView
+            android:id="@+id/time3_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lastMinyan_textView"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="5:30"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/info2_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/info1_textView"
-        android:layout_marginLeft="17dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@id/time2_textView"
-        android:gravity="center"
-        android:text="(Mincha) Room 101"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/lastMinyan_textView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/info2_textView"
-        android:layout_marginTop="22dp"
-        android:gravity="center"
-        android:text="Last Minyan at"
-        android:textSize="35sp" />
-
-    <TextView
-        android:id="@+id/time3_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lastMinyan_textView"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:text="5:30"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/info3_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lastMinyan_textView"
-        android:layout_marginLeft="17dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@id/time2_textView"
-        android:gravity="center"
-        android:text="(Mincha) Room 101"
-        android:textSize="24sp" />
+        <TextView
+            android:id="@+id/info3_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lastMinyan_textView"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/time3_textView"
+            android:gravity="center"
+            android:text="(Mincha) Room 101"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/refresh_button"
@@ -126,8 +153,8 @@
         android:layout_toRightOf="@id/refresh_button"
         android:text="Last Updated at:"
         android:textSize="15sp" />
-    
-        <TextView
+
+    <TextView
         android:id="@+id/last_refresh_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
