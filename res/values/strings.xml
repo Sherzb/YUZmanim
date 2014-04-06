@@ -7,5 +7,14 @@
         Living-at-YU/Shabbat-Programming/Wilf_Campus/Tzav-Zachor%202014.pdf</string>
     <string name="next_mincha">Next Mincha\n6:45 P.M.</string>
     <string name="last_minyan">The last Mincha will be at\n10:00 P.M.</string>
-        
+    <string name="shacharis_spinner">Choose a Day</string>
+
+    <string-array name="shacharis_days">
+        <item>Regular</item>
+        <item>Monday/Thursday</item>
+        <item>Sunday</item>
+        <item>Rosh Chodesh</item>
+        <item>Fast Day</item>
+    </string-array>
+
 </resources>

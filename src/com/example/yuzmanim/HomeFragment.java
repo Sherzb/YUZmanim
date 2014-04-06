@@ -3,7 +3,6 @@ package com.example.yuzmanim;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ public class HomeFragment extends Fragment {
 	
 	OnRefreshSelectedListener mCallback;
 	Button mRefreshButton;
-	private static final String TAG = "HomeFragment";
 
 	//To let the refresh button communicate with the main activity
 	public interface OnRefreshSelectedListener {
