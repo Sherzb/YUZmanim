@@ -6,7 +6,9 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
+import com.example.yuzmanim.HomeFragment.OnRefreshSelectedListener;
 import com.example.yuzmanim.adapter.TabsPagerAdapter;
 
 /**
@@ -16,7 +18,7 @@ import com.example.yuzmanim.adapter.TabsPagerAdapter;
  *
  */
 
-public class MainActivity extends FragmentActivity implements ActionBar.TabListener
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener, OnRefreshSelectedListener
 {
 	//Viewpager is used to switch between screen with swiping.
 	private ViewPager viewPager;
@@ -92,5 +94,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
+	}
+	
+	/**
+	 * When the refresh button of HomeFragment is hit, magic happens!
+	 * ARIEL ALL THE REFRESH MAGIC HAPPENS HERE!
+	 */
+	@Override
+	public void onRefreshSelected() {
+		//MagicMagicMagic
 	}
 }
