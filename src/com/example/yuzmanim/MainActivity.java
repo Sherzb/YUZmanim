@@ -28,6 +28,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private ActionBar actionBar;
 	// Tab titles
 	private String[] tabs = { "Home", "Shacharis", "Mincha", "Maariv", "Other" };
+	public static final String TAG = "MainActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +103,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 */
 	@Override
 	public void onRefreshSelected() {
+		Log.i(TAG, "Refresh button registered in MainActivity");
 		//MagicMagicMagic
 	}
 }
