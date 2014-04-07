@@ -113,14 +113,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		TextView nextMinchaTime2 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaTime2");
 		TextView nextMinchaInfo1 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaInfo1");
 		TextView nextMinchaInfo2 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaInfo1");	
-		TextView shacharisHeader = (TextView)mAdapter.getItem(1).getView().findViewWithTag("shacharisHeader");	
 		
 		if (successful) {
-			nextMinchaTime1.setText("2:33");
+			nextMinchaTime1.setText("12:33");
 			nextMinchaTime2.setText("2:40");
 			nextMinchaInfo1.setText("Room 101");
 			nextMinchaInfo2.setText("(Mincha) Gluck Beis");
-			shacharisHeader.setText("Even modifies other fragments");
 		}
 	}
 }
