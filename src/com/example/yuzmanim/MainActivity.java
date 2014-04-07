@@ -39,7 +39,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		viewPager = (ViewPager) findViewById(R.id.pager);               //Initializes the viewPager. pager is created in activity_main.xml
 		actionBar = getActionBar();                                     //Retrieves this activity's ActionBar
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());   //Initializes the adapter, passing the FragmentManager from FragmentActivity
-
+		
 		viewPager.setAdapter(mAdapter);			//Enables the swiping      
 
 		actionBar.setDisplayShowHomeEnabled(false);    //Hide ActionBar but show tabs- Gets rid of the logo. Will see if we want to keep this
@@ -52,6 +52,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		for (String tab_name : tabs) {
 			actionBar.addTab(  actionBar.newTab().setText(tab_name).setTabListener(this)   );
 		}
+		
+		//No idea what I'm doing
+		android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        //fragmentManager.beginTransaction().add(mAdapter.getItem(0), "YOUR TAG 1").commit();
+        //fragmentManager.beginTransaction().add(mAdapter.getItem(1), "YOUR TAG 2").commit();
+        //fragmentManager.beginTransaction().add(mAdapter.getItem(2), "YOUR TAG 3").commit();
+        //fragmentManager.beginTransaction().add(mAdapter.getItem(3), "YOUR TAG 3").commit();
+        //fragmentManager.beginTransaction().add(mAdapter.getItem(4), "YOUR TAG 3").commit();
 	}
 
 	//The next 3 methods are required by TabListener, which was implemented to add tabs to the ActionBar.

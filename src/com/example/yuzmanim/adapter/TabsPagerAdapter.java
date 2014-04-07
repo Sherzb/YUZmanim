@@ -18,45 +18,44 @@ import com.example.yuzmanim.ShacharisFragment;
  */
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
-	
+
 	private Fragment homeFragment, shacharisFragment, minchaFragment, maarivFragment, otherFragment;
-	
-    public TabsPagerAdapter(FragmentManager fm) {
-        super(fm);
-        homeFragment = new HomeFragment();
-        shacharisFragment = new ShacharisFragment();
-        minchaFragment = new MinchaFragment();
-        maarivFragment = new MaarivFragment();
-        otherFragment = new OtherFragment();
-    }
- 
-    @Override
-    public Fragment getItem(int index) {
- 
-        switch (index) {
-        case 0: 
-        	//The home fragment activity
-        	return homeFragment;
-        case 1:
-            // Shacharis fragment activity
-            return shacharisFragment;
-        case 2:
-            // Mincha fragment activity
-            return minchaFragment;
-        case 3:
-            // Maariv fragment activity
-            return maarivFragment;
-        case 4:
-        	return otherFragment;
-        }
- 
-        return null;
-    }
- 
-    @Override
-    public int getCount() {
-        // get Item count - equal to number of tabs
-        return 5;
-    }
- 
+
+	public TabsPagerAdapter(FragmentManager fm) {
+		super(fm);
+		homeFragment = new HomeFragment();
+		shacharisFragment = new ShacharisFragment();
+		minchaFragment = new MinchaFragment();
+		maarivFragment = new MaarivFragment();
+		otherFragment = new OtherFragment();
+	}
+
+	@Override
+	public Fragment getItem(int index) {
+
+		switch (index) {
+		case 0: 
+			//The home fragment activity
+			return homeFragment;
+		case 1:
+			// Shacharis fragment activity
+			return shacharisFragment;
+		case 2:
+			// Mincha fragment activity
+			return minchaFragment;
+		case 3:
+			// Maariv fragment activity
+			return maarivFragment;
+		case 4:
+			return otherFragment;
+		}
+
+		return null;
+	}
+
+	@Override
+	public int getCount() {
+		// get Item count - equal to number of tabs
+		return 5;
+	}
 }
