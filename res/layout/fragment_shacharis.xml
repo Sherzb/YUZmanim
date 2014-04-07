@@ -16,6 +16,7 @@
         android:textSize="50sp" />
     
     <TextView
+        android:tag="shacharisHeader"
         android:id="@+id/shacharis_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

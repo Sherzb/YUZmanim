@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.yuzmanim.HomeFragment.OnRefreshSelectedListener;
 import com.example.yuzmanim.adapter.TabsPagerAdapter;
@@ -52,14 +53,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		for (String tab_name : tabs) {
 			actionBar.addTab(  actionBar.newTab().setText(tab_name).setTabListener(this)   );
 		}
-		
-		//No idea what I'm doing
-		android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        //fragmentManager.beginTransaction().add(mAdapter.getItem(0), "YOUR TAG 1").commit();
-        //fragmentManager.beginTransaction().add(mAdapter.getItem(1), "YOUR TAG 2").commit();
-        //fragmentManager.beginTransaction().add(mAdapter.getItem(2), "YOUR TAG 3").commit();
-        //fragmentManager.beginTransaction().add(mAdapter.getItem(3), "YOUR TAG 3").commit();
-        //fragmentManager.beginTransaction().add(mAdapter.getItem(4), "YOUR TAG 3").commit();
 	}
 
 	//The next 3 methods are required by TabListener, which was implemented to add tabs to the ActionBar.
@@ -111,7 +104,23 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 */
 	@Override
 	public void onRefreshSelected() {
-		Log.i(TAG, "Refresh button registered in MainActivity");
 		//MagicMagicMagic
+		Log.i(TAG, "Refresh button registered in MainActivity");
+		boolean successful = true; //No idea how DOM works
+		
+		
+		TextView nextMinchaTime1 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaTime1");
+		TextView nextMinchaTime2 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaTime2");
+		TextView nextMinchaInfo1 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaInfo1");
+		TextView nextMinchaInfo2 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaInfo1");	
+		TextView shacharisHeader = (TextView)mAdapter.getItem(1).getView().findViewWithTag("shacharisHeader");	
+		
+		if (successful) {
+			nextMinchaTime1.setText("2:33");
+			nextMinchaTime2.setText("2:40");
+			nextMinchaInfo1.setText("Room 101");
+			nextMinchaInfo2.setText("(Mincha) Gluck Beis");
+			shacharisHeader.setText("Even modifies other fragments");
+		}
 	}
 }

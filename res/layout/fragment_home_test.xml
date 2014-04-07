@@ -34,6 +34,7 @@
             android:textSize="35sp" />
 
         <TextView
+            android:tag="nextMinchaTime1"
             android:id="@+id/time1_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
             android:textSize="24sp" />
 
         <TextView
+            android:tag="nextMinchaInfo1"
             android:id="@+id/info1_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,6 +62,7 @@
             android:textSize="24sp" />
 
         <TextView
+            android:tag="nextMinchaTime2"
             android:id="@+id/time2_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,6 +75,7 @@
             android:textSize="24sp" />
 
         <TextView
+            android:tag="nextMinchaInfo1"
             android:id="@+id/info2_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
