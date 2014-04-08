@@ -63,4 +63,10 @@ public class HomeFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		Log.i("HomeFragment", "OnCreate was called on the HomeFragment");
 	}
+	
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		Log.i("HomeFragment", "OnViewCreated was called on the HomeFragment");
+	}
 }

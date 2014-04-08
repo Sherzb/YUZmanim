@@ -113,11 +113,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		Log.i(TAG, "Refresh button registered in MainActivity");
 		boolean successful = true; //No idea how DOM works
 
-
+		//Okay, the issue is that getView is returning null after a rotation
 		TextView nextMinchaTime1 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaTime1");
 		TextView nextMinchaTime2 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaTime2");
 		TextView nextMinchaInfo1 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaInfo1");
-		TextView nextMinchaInfo2 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaInfo1");	
+		TextView nextMinchaInfo2 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaInfo1");
+		Spinner shacharisSpinner = (Spinner)mAdapter.getItem(1).getView().findViewWithTag("shacharisSpinner");
 
 		TextView shabbosSchedule = (TextView)mAdapter.getItem(4).getView().findViewWithTag("shabbosSchedule");	
 		
@@ -132,7 +133,20 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	public void spinnerSetup() 
 	{	
-		//mAdapter.getItem(1).getView().findViewById(R.id.info1_textView);
-		//Spinner shacharisSpinner = (Spinner)mAdapter.getItem(1).getView().findViewById(R.id.spinner);
+		//Spinner shacharisSpinner = (Spinner)
+		//mAdapter.getItem(1).getView();
+		//.findViewWithTag("shacharisSpinner");
+	}
+	
+	//@Override
+	//protected void onSaveInstanceState(Bundle outState) { } //lolwut, how in the world did this solve the problem!?
+	//http://stackoverflow.com/questions/22275848/fragment-oncreateview-not-called-in-viewpager-after-configuration-change
+	
+	@Override 
+	public void onSaveInstanceState(Bundle outState) 
+	{
+	//first saving my state, so the bundle wont be empty.
+	outState.putString("WORKAROUND_FOR_BUG_19917_KEY",  "WORKAROUND_FOR_BUG_19917_VALUE");
+	super.onSaveInstanceState(outState);
 	}
 }
