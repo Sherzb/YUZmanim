@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.yuzmanim.HomeFragment.OnRefreshSelectedListener;
@@ -40,8 +41,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		viewPager = (ViewPager) findViewById(R.id.pager);               //Initializes the viewPager. pager is created in activity_main.xml
 		actionBar = getActionBar();                                     //Retrieves this activity's ActionBar
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());   //Initializes the adapter, passing the FragmentManager from FragmentActivity
-		
-		viewPager.setAdapter(mAdapter);			//Enables the swiping      
+
+		viewPager.setAdapter(mAdapter);			//Enables the swiping    
+		viewPager.setOffscreenPageLimit(4);
 
 		actionBar.setDisplayShowHomeEnabled(false);    //Hide ActionBar but show tabs- Gets rid of the logo. Will see if we want to keep this
 		//If we do, use this: http://stackoverflow.com/questions/16026818/actionbar-custom-view-with-centered-imageview-action-items-on-sides
@@ -53,6 +55,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		for (String tab_name : tabs) {
 			actionBar.addTab(  actionBar.newTab().setText(tab_name).setTabListener(this)   );
 		}
+
+		//Messes with the spinner in the shacharis fragment
+		spinnerSetup();
 	}
 
 	//The next 3 methods are required by TabListener, which was implemented to add tabs to the ActionBar.
@@ -74,14 +79,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 		tabUpdate();
 	}
-	
+
 	/**
 	 * Changes which tab is selected when changing the views via swiping. Is called both by onTabSelected and onTabUnselected,
 	 * so that you don't need to first change a tab for the tabs to update.
 	 */
 	public void tabUpdate()
 	{
-		
+
 		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {
@@ -97,7 +102,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			}
 		});
 	}
-	
+
 	/**
 	 * When the refresh button of HomeFragment is hit, magic happens!
 	 * ARIEL ALL THE REFRESH MAGIC HAPPENS HERE!
@@ -107,18 +112,27 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		//MagicMagicMagic
 		Log.i(TAG, "Refresh button registered in MainActivity");
 		boolean successful = true; //No idea how DOM works
-		
-		
+
+
 		TextView nextMinchaTime1 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaTime1");
 		TextView nextMinchaTime2 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaTime2");
 		TextView nextMinchaInfo1 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaInfo1");
 		TextView nextMinchaInfo2 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaInfo1");	
+
+		TextView shabbosSchedule = (TextView)mAdapter.getItem(4).getView().findViewWithTag("shabbosSchedule");	
 		
 		if (successful) {
-			nextMinchaTime1.setText("12:33");
+			nextMinchaTime1.setText("2:33");
 			nextMinchaTime2.setText("2:40");
 			nextMinchaInfo1.setText("Room 101");
 			nextMinchaInfo2.setText("(Mincha) Gluck Beis");
+			shabbosSchedule.setText("Working!");
 		}
+	}
+
+	public void spinnerSetup() 
+	{	
+		//mAdapter.getItem(1).getView().findViewById(R.id.info1_textView);
+		//Spinner shacharisSpinner = (Spinner)mAdapter.getItem(1).getView().findViewById(R.id.spinner);
 	}
 }
