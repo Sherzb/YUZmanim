@@ -31,5 +31,17 @@ public class OtherFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i("OtherFragment", "OnCreate was called on the OtherFragment");
+		setRetainInstance(true);
 	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) 
+    {
+
+	    outState.putString("tab", "yourAwesomeFragmentsTab");
+		
+        super.onSaveInstanceState(outState);
+        
+
+    }
 }

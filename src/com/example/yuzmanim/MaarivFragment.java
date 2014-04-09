@@ -31,5 +31,17 @@ public class MaarivFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i("MaarivFragment", "OnCreate was called on the MaarivFragment");
+		setRetainInstance(true);
 	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) 
+    {
+
+	    outState.putString("tab", "yourAwesomeFragmentsTab");
+		
+        super.onSaveInstanceState(outState);
+        
+
+    }
 }

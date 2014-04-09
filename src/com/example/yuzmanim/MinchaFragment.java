@@ -31,5 +31,17 @@ public class MinchaFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i("MinchaFragment", "OnCreate was called on the MinchaFragment");
+		setRetainInstance(true);
 	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) 
+    {
+
+	    outState.putString("tab", "yourAwesomeFragmentsTab");
+		
+        super.onSaveInstanceState(outState);
+        
+
+    }
 }

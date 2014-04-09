@@ -30,5 +30,17 @@ public class ShacharisFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i("ShacharisFragment", "OnCreate was called on the ShacharisFragment");
+		setRetainInstance(true);
 	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) 
+    {
+
+	    outState.putString("tab", "yourAwesomeFragmentsTab");
+		
+        super.onSaveInstanceState(outState);
+        
+
+    }
 }

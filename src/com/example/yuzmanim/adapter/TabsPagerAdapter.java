@@ -19,15 +19,8 @@ import com.example.yuzmanim.ShacharisFragment;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
-	private Fragment homeFragment, shacharisFragment, minchaFragment, maarivFragment, otherFragment;
-
 	public TabsPagerAdapter(FragmentManager fm) {
 		super(fm);
-		homeFragment = new HomeFragment();
-		shacharisFragment = new ShacharisFragment();
-		minchaFragment = new MinchaFragment();
-		maarivFragment = new MaarivFragment();
-		otherFragment = new OtherFragment();
 	}
 
 	@Override
@@ -36,18 +29,18 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 		switch (index) {
 		case 0: 
 			//The home fragment activity
-			return homeFragment;
+			return new HomeFragment();
 		case 1:
 			// Shacharis fragment activity
-			return shacharisFragment;
+			return new ShacharisFragment();
 		case 2:
 			// Mincha fragment activity
-			return minchaFragment;
+			return new MinchaFragment();
 		case 3:
 			// Maariv fragment activity
-			return maarivFragment;
+			return new MaarivFragment();
 		case 4:
-			return otherFragment;
+			return new OtherFragment();
 		}
 
 		return null;

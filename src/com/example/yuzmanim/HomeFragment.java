@@ -8,11 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class HomeFragment extends Fragment {
-	
+
 	OnRefreshSelectedListener mCallback;
 	Button mRefreshButton;
+	
+	private String nextMinchaTime1;
+	private String nextMinchaTime2;
+	private String nextMinchaInfo1;
+	private String nextMinchaInfo2;
 
 	//To let the refresh button communicate with the main activity
 	public interface OnRefreshSelectedListener {
@@ -38,7 +44,7 @@ public class HomeFragment extends Fragment {
 			Bundle savedInstanceState) {
 
 		View rootView = inflater.inflate(R.layout.fragment_home_test, container, false);
-		
+
 		mRefreshButton = (Button)rootView.findViewById(R.id.refresh_button);
 		mRefreshButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -46,27 +52,58 @@ public class HomeFragment extends Fragment {
 				mCallback.onRefreshSelected();
 			}
 		});
+		
+		if (nextMinchaTime1 != null) {
+			TextView text = (TextView)rootView.findViewWithTag("nextMinchaTime1");
+			text.setText(nextMinchaTime1);
+		}
 
-		 Log.i("HomeFragment", "OnCreateView was called on the HomeFragment");
+		Log.i("HomeFragment", "OnCreateView was called on the HomeFragment");
 		return rootView;
 	}
-	
+
 	//Whats the difference between onDestroy and onDestroyView!?
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
 		Log.i("HomeFragment", "OnDestroy was called on the HomeFragment");
 	}
-	
+
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		setRetainInstance(true);
 		Log.i("HomeFragment", "OnCreate was called on the HomeFragment");
 	}
-	
+
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		Log.i("HomeFragment", "OnViewCreated was called on the HomeFragment");
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) 
+	{	
+		super.onSaveInstanceState(outState);
+		outState.putString("nextMinchaTime1", ((TextView)getView().findViewWithTag("nextMinchaTime1")).getText().toString());
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		setRetainInstance(true);
+	}
+	
+	public void setNextMinchaTime1(String time) {
+		nextMinchaTime1 = time;
+	}
+	
+	public void update() 
+	{
+		TextView view = (TextView)getView().findViewWithTag("nextMinchaTime1");
+		view.setText(nextMinchaTime1);
 	}
 }

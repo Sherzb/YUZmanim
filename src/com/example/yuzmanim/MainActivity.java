@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -113,22 +114,33 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		Log.i(TAG, "Refresh button registered in MainActivity");
 		boolean successful = true; //No idea how DOM works
 
-		//Okay, the issue is that getView is returning null after a rotation
-		TextView nextMinchaTime1 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaTime1");
-		TextView nextMinchaTime2 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaTime2");
-		TextView nextMinchaInfo1 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaInfo1");
-		TextView nextMinchaInfo2 = (TextView)mAdapter.getItem(0).getView().findViewWithTag("nextMinchaInfo1");
-		Spinner shacharisSpinner = (Spinner)mAdapter.getItem(1).getView().findViewWithTag("shacharisSpinner");
+		//http://stackoverflow.com/a/9744146
+		HomeFragment fHome = (HomeFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(0));
+		ShacharisFragment fShach = (ShacharisFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(1));
+		MinchaFragment fMinch = (MinchaFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(2));
+		MaarivFragment fMaar = (MaarivFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(3));
+		OtherFragment fOther = (OtherFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(4));
 
-		TextView shabbosSchedule = (TextView)mAdapter.getItem(4).getView().findViewWithTag("shabbosSchedule");	
-		
+
+		TextView nextMinchaTime1 = (TextView)fHome.getView().findViewWithTag("nextMinchaTime1");
+		TextView nextMinchaTime2 = (TextView)fHome.getView().findViewWithTag("nextMinchaTime2");
+		TextView nextMinchaInfo1 = (TextView)fHome.getView().findViewWithTag("nextMinchaInfo1");
+		TextView nextMinchaInfo2 = (TextView)fHome.getView().findViewWithTag("nextMinchaInfo1");
+
+		Spinner shacharisSpinner = (Spinner)fShach.getView().findViewWithTag("shacharisSpinner");
+
+		TextView shabbosSchedule = (TextView)fOther.getView().findViewWithTag("shabbosSchedule");	
+
 		if (successful) {
-			nextMinchaTime1.setText("2:33");
+			//nextMinchaTime1.setText("2:33");
+			fHome.setNextMinchaTime1("2:33");
+			fHome.update();
 			nextMinchaTime2.setText("2:40");
 			nextMinchaInfo1.setText("Room 101");
 			nextMinchaInfo2.setText("(Mincha) Gluck Beis");
 			shabbosSchedule.setText("Working!");
 		}
+
 	}
 
 	public void spinnerSetup() 
@@ -138,15 +150,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		//.findViewWithTag("shacharisSpinner");
 	}
 	
-	//@Override
-	//protected void onSaveInstanceState(Bundle outState) { } //lolwut, how in the world did this solve the problem!?
-	//http://stackoverflow.com/questions/22275848/fragment-oncreateview-not-called-in-viewpager-after-configuration-change
-	
-	@Override 
-	public void onSaveInstanceState(Bundle outState) 
-	{
-	//first saving my state, so the bundle wont be empty.
-	outState.putString("WORKAROUND_FOR_BUG_19917_KEY",  "WORKAROUND_FOR_BUG_19917_VALUE");
-	super.onSaveInstanceState(outState);
+	private String getFragmentTag(int pos){
+		return "android:switcher:"+R.id.pager+":"+pos;
 	}
 }
