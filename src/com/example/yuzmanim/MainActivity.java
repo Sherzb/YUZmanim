@@ -128,8 +128,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		if (successful) {
 			fHome.setNextMinchaTime1("2:33");
 			fHome.setNextMinchaTime2("2:40");
-			fHome.setNextMinchaInfo1("Room 101");
+			fHome.setNextMinchaInfo1("(Mincha) Room 101");
 			fHome.setNextMinchaInfo2("(Mincha) Gluck Beis");
+			fHome.setRefreshTime();
 			fHome.update();
 			
 			//nextMinchaTime2.setText("2:40");

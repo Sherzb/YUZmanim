@@ -3,6 +3,7 @@ package com.example.yuzmanim;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ public class HomeFragment extends Fragment {
 	private String nextMinchaTime2;
 	private String nextMinchaInfo1;
 	private String nextMinchaInfo2;
+	private String refreshTime;
 
 	//To let the refresh button communicate with the main activity
 	public interface OnRefreshSelectedListener {
@@ -54,6 +56,7 @@ public class HomeFragment extends Fragment {
 			}
 		});
 		
+		/* All of this has been replaced by adding freezeText="true" to all the textViews
 		if (nextMinchaTime1 != null) {
 			TextView text = (TextView)rootView.findViewWithTag("nextMinchaTime1");
 			text.setText(nextMinchaTime1);
@@ -70,6 +73,7 @@ public class HomeFragment extends Fragment {
 			TextView text = (TextView)rootView.findViewWithTag("nextMinchaInfo2");
 			text.setText(nextMinchaInfo2);
 		}
+		*/
 
 		Log.i("HomeFragment", "OnCreateView was called on the HomeFragment");
 		return rootView;
@@ -126,15 +130,33 @@ public class HomeFragment extends Fragment {
 		nextMinchaInfo2  = info;
 	}
 	
+	public void setRefreshTime() {
+		Time now = new Time();
+		now.setToNow();
+		String AMPM;
+		int hour = now.hour;
+		if (hour > 12) {
+			hour = hour - 12;
+			AMPM = "PM";
+		}
+		else {
+			AMPM = "AM";
+		}
+		String time = (now.month + 1) + "/" + (now.monthDay) + " " + (hour) + ":" + (now.minute) + " " + AMPM;
+		refreshTime = time;
+	}
+	
 	public void update() 
 	{
 		TextView nextMincha1View = (TextView)getView().findViewWithTag("nextMinchaTime1");
 		TextView nextMincha2View = (TextView)getView().findViewWithTag("nextMinchaTime2");
 		TextView nextMincha1Info = (TextView)getView().findViewWithTag("nextMinchaInfo1");
 		TextView nextMincha2Info = (TextView)getView().findViewWithTag("nextMinchaInfo2");
+		TextView refreshTime = (TextView)getView().findViewWithTag("refreshTime");
 		nextMincha1View.setText(nextMinchaTime1);
 		nextMincha2View.setText(nextMinchaTime2);
 		nextMincha1Info.setText(nextMinchaInfo1);
 		nextMincha2Info.setText(nextMinchaInfo2);
+		refreshTime.setText(this.refreshTime);
 	}
 }
