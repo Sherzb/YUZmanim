@@ -1,6 +1,8 @@
 package com.example.yuzmanim;
 
 import android.app.Activity;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
@@ -15,11 +17,13 @@ public class HomeFragment extends Fragment {
 
 	OnRefreshSelectedListener mCallback;
 	Button mRefreshButton;
-	
+
 	private String nextMinchaTime1;
 	private String nextMinchaTime2;
 	private String nextMinchaInfo1;
 	private String nextMinchaInfo2;
+	private String finalMinyanTime;
+	private String finalMinyanInfo;
 	private String refreshTime;
 
 	//To let the refresh button communicate with the main activity
@@ -55,7 +59,7 @@ public class HomeFragment extends Fragment {
 				mCallback.onRefreshSelected();
 			}
 		});
-		
+
 		/* All of this has been replaced by adding freezeText="true" to all the textViews
 		if (nextMinchaTime1 != null) {
 			TextView text = (TextView)rootView.findViewWithTag("nextMinchaTime1");
@@ -73,7 +77,7 @@ public class HomeFragment extends Fragment {
 			TextView text = (TextView)rootView.findViewWithTag("nextMinchaInfo2");
 			text.setText(nextMinchaInfo2);
 		}
-		*/
+		 */
 
 		Log.i("HomeFragment", "OnCreateView was called on the HomeFragment");
 		return rootView;
@@ -90,7 +94,7 @@ public class HomeFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setRetainInstance(true);
 		Log.i("HomeFragment", "OnCreate was called on the HomeFragment");
 	}
@@ -107,29 +111,37 @@ public class HomeFragment extends Fragment {
 		super.onSaveInstanceState(outState);
 		//outState.putString("nextMinchaTime1", ((TextView)getView().findViewWithTag("nextMinchaTime1")).getText().toString());
 	}
-	
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setRetainInstance(true);
 	}
-	
+
 	public void setNextMinchaTime1(String time) {
 		nextMinchaTime1 = time;
 	}
-	
+
 	public void setNextMinchaTime2(String time) {
 		nextMinchaTime2  = time;
 	}
-	
+
 	public void setNextMinchaInfo1(String info) {
 		nextMinchaInfo1  = info;
 	}
-	
+
 	public void setNextMinchaInfo2(String info) {
 		nextMinchaInfo2  = info;
 	}
-	
+
+	public void setFinaltMinyanTime(String info) {
+		finalMinyanTime = info;
+	}
+
+	public void setFinalMinyanInfo(String info) {
+		finalMinyanInfo = info;
+	}
+
 	public void setRefreshTime() {
 		Time now = new Time();
 		now.setToNow();
@@ -145,18 +157,43 @@ public class HomeFragment extends Fragment {
 		String time = (now.month + 1) + "/" + (now.monthDay) + " " + (hour) + ":" + (now.minute) + " " + AMPM;
 		refreshTime = time;
 	}
-	
+
 	public void update() 
 	{
 		TextView nextMincha1View = (TextView)getView().findViewWithTag("nextMinchaTime1");
 		TextView nextMincha2View = (TextView)getView().findViewWithTag("nextMinchaTime2");
 		TextView nextMincha1Info = (TextView)getView().findViewWithTag("nextMinchaInfo1");
 		TextView nextMincha2Info = (TextView)getView().findViewWithTag("nextMinchaInfo2");
+		TextView finalMinyanTime = (TextView)getView().findViewWithTag("finalMinyanTime");
+		TextView finalMinyanInfo = (TextView)getView().findViewWithTag("finalMinyanInfo");
 		TextView refreshTime = (TextView)getView().findViewWithTag("refreshTime");
 		nextMincha1View.setText(nextMinchaTime1);
 		nextMincha2View.setText(nextMinchaTime2);
 		nextMincha1Info.setText(nextMinchaInfo1);
 		nextMincha2Info.setText(nextMinchaInfo2);
+		finalMinyanTime.setText(this.finalMinyanTime);
+		finalMinyanInfo.setText(this.finalMinyanInfo);
 		refreshTime.setText(this.refreshTime);
+
+		//TextSize fixing:
+		/*
+		Rect bounds = new Rect();
+		Paint textPaint1 = finalMinyanTime.getPaint();
+		textPaint1.getTextBounds(this.finalMinyanInfo,0,finalMinyanInfo.length(),bounds);
+		int Itswidth = bounds.width();
+		
+		Paint textPaint2 = finalMinyanTime.getPaint();
+		textPaint2.getTextBounds(this.finalMinyanInfo,0,finalMinyanInfo.length(),bounds);
+		//int Itswidth = bounds.width();
+		 */
+		
+		Paint paint = new Paint();
+		float nextMinchaInfo1Width = paint.measureText(nextMinchaInfo1);
+		float finalMinyanInfoWidth = paint.measureText(this.finalMinyanInfo);
+		nextMincha1Info.setTextSize((float)(2664/nextMinchaInfo1Width));
+		finalMinyanInfo.setTextSize((float)(2664/finalMinyanInfoWidth));
+		//finalMinyanInfo.setText(Itswidth + "");
+		
 	}
 }
+
