@@ -121,24 +121,21 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		MaarivFragment fMaar = (MaarivFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(3));
 		OtherFragment fOther = (OtherFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(4));
 
-
-		TextView nextMinchaTime1 = (TextView)fHome.getView().findViewWithTag("nextMinchaTime1");
-		TextView nextMinchaTime2 = (TextView)fHome.getView().findViewWithTag("nextMinchaTime2");
-		TextView nextMinchaInfo1 = (TextView)fHome.getView().findViewWithTag("nextMinchaInfo1");
-		TextView nextMinchaInfo2 = (TextView)fHome.getView().findViewWithTag("nextMinchaInfo1");
-
 		Spinner shacharisSpinner = (Spinner)fShach.getView().findViewWithTag("shacharisSpinner");
 
 		TextView shabbosSchedule = (TextView)fOther.getView().findViewWithTag("shabbosSchedule");	
 
 		if (successful) {
-			//nextMinchaTime1.setText("2:33");
 			fHome.setNextMinchaTime1("2:33");
+			fHome.setNextMinchaTime2("2:40");
+			fHome.setNextMinchaInfo1("Room 101");
+			fHome.setNextMinchaInfo2("(Mincha) Gluck Beis");
 			fHome.update();
-			nextMinchaTime2.setText("2:40");
-			nextMinchaInfo1.setText("Room 101");
-			nextMinchaInfo2.setText("(Mincha) Gluck Beis");
-			shabbosSchedule.setText("Working!");
+			
+			//nextMinchaTime2.setText("2:40");
+			//nextMinchaInfo1.setText("Room 101");
+			//nextMinchaInfo2.setText("(Mincha) Gluck Beis");
+			//shabbosSchedule.setText("Working!");
 		}
 
 	}
@@ -149,7 +146,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		//mAdapter.getItem(1).getView();
 		//.findViewWithTag("shacharisSpinner");
 	}
-	
+
 	private String getFragmentTag(int pos){
 		return "android:switcher:"+R.id.pager+":"+pos;
 	}

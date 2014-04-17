@@ -75,7 +75,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:tag="nextMinchaInfo1"
+            android:tag="nextMinchaInfo2"
             android:id="@+id/info2_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

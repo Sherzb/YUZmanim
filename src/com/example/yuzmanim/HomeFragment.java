@@ -30,7 +30,8 @@ public class HomeFragment extends Fragment {
 		super.onAttach(activity);
 
 		// This makes sure that the container activity has implemented
-		// the callback interface. If not, it throws an exception
+		// the callback interface. If not, it throws an exception. ie,
+		// needed for the refresh button to talk to the MainActivity
 		try {
 			mCallback = (OnRefreshSelectedListener) activity;
 		} catch (ClassCastException e) {
@@ -56,6 +57,18 @@ public class HomeFragment extends Fragment {
 		if (nextMinchaTime1 != null) {
 			TextView text = (TextView)rootView.findViewWithTag("nextMinchaTime1");
 			text.setText(nextMinchaTime1);
+		}
+		if (nextMinchaTime2 != null) {
+			TextView text = (TextView)rootView.findViewWithTag("nextMinchaTime2");
+			text.setText(nextMinchaTime2);
+		}
+		if (nextMinchaInfo1 != null) {
+			TextView text = (TextView)rootView.findViewWithTag("nextMinchaInfo1");
+			text.setText(nextMinchaInfo1);
+		}
+		if (nextMinchaInfo2 != null) {
+			TextView text = (TextView)rootView.findViewWithTag("nextMinchaInfo2");
+			text.setText(nextMinchaInfo2);
 		}
 
 		Log.i("HomeFragment", "OnCreateView was called on the HomeFragment");
@@ -88,7 +101,7 @@ public class HomeFragment extends Fragment {
 	public void onSaveInstanceState(Bundle outState) 
 	{	
 		super.onSaveInstanceState(outState);
-		outState.putString("nextMinchaTime1", ((TextView)getView().findViewWithTag("nextMinchaTime1")).getText().toString());
+		//outState.putString("nextMinchaTime1", ((TextView)getView().findViewWithTag("nextMinchaTime1")).getText().toString());
 	}
 	
 	@Override
@@ -101,9 +114,27 @@ public class HomeFragment extends Fragment {
 		nextMinchaTime1 = time;
 	}
 	
+	public void setNextMinchaTime2(String time) {
+		nextMinchaTime2  = time;
+	}
+	
+	public void setNextMinchaInfo1(String info) {
+		nextMinchaInfo1  = info;
+	}
+	
+	public void setNextMinchaInfo2(String info) {
+		nextMinchaInfo2  = info;
+	}
+	
 	public void update() 
 	{
-		TextView view = (TextView)getView().findViewWithTag("nextMinchaTime1");
-		view.setText(nextMinchaTime1);
+		TextView nextMincha1View = (TextView)getView().findViewWithTag("nextMinchaTime1");
+		TextView nextMincha2View = (TextView)getView().findViewWithTag("nextMinchaTime2");
+		TextView nextMincha1Info = (TextView)getView().findViewWithTag("nextMinchaInfo1");
+		TextView nextMincha2Info = (TextView)getView().findViewWithTag("nextMinchaInfo2");
+		nextMincha1View.setText(nextMinchaTime1);
+		nextMincha2View.setText(nextMinchaTime2);
+		nextMincha1Info.setText(nextMinchaInfo1);
+		nextMincha2Info.setText(nextMinchaInfo2);
 	}
 }
