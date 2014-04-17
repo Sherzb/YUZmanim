@@ -175,25 +175,14 @@ public class HomeFragment extends Fragment {
 		finalMinyanInfo.setText(this.finalMinyanInfo);
 		refreshTime.setText(this.refreshTime);
 
-		//TextSize fixing:
-		/*
-		Rect bounds = new Rect();
-		Paint textPaint1 = finalMinyanTime.getPaint();
-		textPaint1.getTextBounds(this.finalMinyanInfo,0,finalMinyanInfo.length(),bounds);
-		int Itswidth = bounds.width();
-		
-		Paint textPaint2 = finalMinyanTime.getPaint();
-		textPaint2.getTextBounds(this.finalMinyanInfo,0,finalMinyanInfo.length(),bounds);
-		//int Itswidth = bounds.width();
-		 */
-		
+		//Adjusts the text size so that it fits exactly a single line. I need new names D:
 		Paint paint = new Paint();
 		float nextMinchaInfo1Width = paint.measureText(nextMinchaInfo1);
+		float nextMinchaInfo2Width = paint.measureText(nextMinchaInfo2);
 		float finalMinyanInfoWidth = paint.measureText(this.finalMinyanInfo);
 		nextMincha1Info.setTextSize((float)(2664/nextMinchaInfo1Width));
+		nextMincha2Info.setTextSize((float)(2664/nextMinchaInfo1Width));
 		finalMinyanInfo.setTextSize((float)(2664/finalMinyanInfoWidth));
-		//finalMinyanInfo.setText(Itswidth + "");
-		
 	}
 }
 

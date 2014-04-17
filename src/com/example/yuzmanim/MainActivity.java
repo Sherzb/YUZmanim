@@ -131,7 +131,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			fHome.setNextMinchaInfo1("(Mincha) Room 101");
 			fHome.setNextMinchaInfo2("(Mincha) Gluck Beis");
 			fHome.setFinalMinyanInfo("(Mincha) Zysman Beis");
-			//fHome.setFinalMinyanInfo("(Mincha) Room 101");
 			fHome.setFinaltMinyanTime("7:10");
 			fHome.setRefreshTime();
 			fHome.update();
