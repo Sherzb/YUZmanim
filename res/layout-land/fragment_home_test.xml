@@ -2,32 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AAFFFF" >
+    android:background="#33CCFF" >
 
     <TextView
         android:id="@+id/yuzmanim_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:background="@drawable/rounded_corner_bg"
         android:gravity="center"
         android:text="YUZmanim"
         android:textColor="#FFFFFF"
-        android:textSize="20sp" />
+        android:textSize="50sp" />
 
     <RelativeLayout
         android:id="@+id/nextMinyan_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_toRightOf="@id/yuzmanim_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/yuzmanim_textView"
         android:layout_marginTop="15dp"
         android:background="@drawable/rounded_corner_bg"
         android:paddingBottom="5dp" >
 
         <TextView
             android:id="@+id/nextMinyan_textView"
-            android:layout_height="fill_parent"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Next Minyan At"
             android:textColor="#FFFFFF"
@@ -95,9 +95,9 @@
 
     <RelativeLayout
         android:id="@+id/finalMinyan_layout"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_toRightOf="@id/nextMinyan_layout"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nextMinyan_layout"
         android:layout_marginTop="15dp"
         android:background="@drawable/rounded_corner_bg"
         android:paddingBottom="5dp" >

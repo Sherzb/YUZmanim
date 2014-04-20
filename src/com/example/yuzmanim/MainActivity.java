@@ -59,6 +59,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		//Messes with the spinner in the shacharis fragment
 		spinnerSetup();
+		
+		//Really need to get this to work
+		//onRefreshSelected();
 	}
 
 	//The next 3 methods are required by TabListener, which was implemented to add tabs to the ActionBar.
@@ -121,10 +124,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		MaarivFragment fMaar = (MaarivFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(3));
 		OtherFragment fOther = (OtherFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(4));
 
-		Spinner shacharisSpinner = (Spinner)fShach.getView().findViewWithTag("shacharisSpinner");
-
-		TextView shabbosSchedule = (TextView)fOther.getView().findViewWithTag("shabbosSchedule");	
-
+		//Spinner shacharisSpinner = (Spinner)fShach.getView().findViewWithTag("shacharisSpinner");
 		if (successful) {
 			fHome.setNextMinchaTime1("2:33");
 			fHome.setNextMinchaTime2("2:40");
@@ -135,10 +135,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			fHome.setRefreshTime();
 			fHome.update();
 			
-			//nextMinchaTime2.setText("2:40");
-			//nextMinchaInfo1.setText("Room 101");
-			//nextMinchaInfo2.setText("(Mincha) Gluck Beis");
-			//shabbosSchedule.setText("Working!");
+			fOther.setShabbosLink("bit.ly/af5dd");
+			fOther.update();
 		}
 
 	}

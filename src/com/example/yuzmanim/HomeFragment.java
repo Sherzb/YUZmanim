@@ -2,7 +2,6 @@ package com.example.yuzmanim;
 
 import android.app.Activity;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
@@ -25,6 +24,8 @@ public class HomeFragment extends Fragment {
 	private String finalMinyanTime;
 	private String finalMinyanInfo;
 	private String refreshTime;
+	
+	public final String LOG = "Home Fragment";
 
 	//To let the refresh button communicate with the main activity
 	public interface OnRefreshSelectedListener {
@@ -64,6 +65,7 @@ public class HomeFragment extends Fragment {
 		if (nextMinchaTime1 != null) {
 			TextView text = (TextView)rootView.findViewWithTag("nextMinchaTime1");
 			text.setText(nextMinchaTime1);
+			Log.i("hFrag", "Next Mincha Time 1 isn't null");
 		}
 		if (nextMinchaTime2 != null) {
 			TextView text = (TextView)rootView.findViewWithTag("nextMinchaTime2");
@@ -83,25 +85,32 @@ public class HomeFragment extends Fragment {
 		return rootView;
 	}
 
-	//Whats the difference between onDestroy and onDestroyView!?
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		Log.i("HomeFragment", "OnDestroy was called on the HomeFragment");
-	}
-
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		setRetainInstance(true);
+		//WHY DON'T I NEED THIS ANYMORE!?!?
+		//setRetainInstance(true);
 		Log.i("HomeFragment", "OnCreate was called on the HomeFragment");
 	}
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		if (savedInstanceState != null) {
+			nextMinchaTime1 = savedInstanceState.getString("nextMinchaTime1");
+			nextMinchaTime2 = savedInstanceState.getString("nextMinchaTime2");
+			nextMinchaInfo1 = savedInstanceState.getString("nextMinchaInfo1");
+			nextMinchaInfo2 = savedInstanceState.getString("nextMinchaInfo2");
+			finalMinyanInfo = savedInstanceState.getString("finalMinyanInfo");
+			finalMinyanTime = savedInstanceState.getString("finalMinyanTime");
+			refreshTime = savedInstanceState.getString("refreshTime");
+			Log.i("homeFragment", "Not null");
+		}
+		if (nextMinchaInfo1 != null && nextMinchaInfo2 != null && nextMinchaTime1 != null && nextMinchaTime2 != null
+				&& refreshTime != null && finalMinyanInfo != null && finalMinyanTime != null) {
+			update();
+			Log.i("homeFragment", "Update Called");
+		}
 		Log.i("HomeFragment", "OnViewCreated was called on the HomeFragment");
 	}
 
@@ -109,13 +118,20 @@ public class HomeFragment extends Fragment {
 	public void onSaveInstanceState(Bundle outState) 
 	{	
 		super.onSaveInstanceState(outState);
-		//outState.putString("nextMinchaTime1", ((TextView)getView().findViewWithTag("nextMinchaTime1")).getText().toString());
+		outState.putString("nextMinchaTime1", nextMinchaTime1);
+		outState.putString("nextMinchaTime2", nextMinchaTime2);
+		outState.putString("nextMinchaInfo1", nextMinchaInfo1);
+		outState.putString("nextMinchaInfo2", nextMinchaInfo2);
+		outState.putString("finalMinyanTime", finalMinyanTime);
+		outState.putString("finalMinyanInfo", finalMinyanInfo);
+		outState.putString("refreshTime", refreshTime);
+		Log.i(LOG, "onSavedInstanceState Called");
 	}
+
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		setRetainInstance(true);
 	}
 
 	public void setNextMinchaTime1(String time) {

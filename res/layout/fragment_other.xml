@@ -23,6 +23,7 @@
             android:textColor="#FFFFFF" />
 
         <TextView
+            android:id="@+id/shabbosSchedule"
             android:tag="shabbosSchedule"
             android:clickable="true"
             android:layout_below="@id/shabbos_header"

@@ -1,15 +1,17 @@
 package com.example.yuzmanim;
 
-import com.example.yuzmanim.R;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
  
 public class OtherFragment extends Fragment {
+	
+	private String shabbosLink;
+	public final String LOG = "OtherFragment";
  
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,17 +33,36 @@ public class OtherFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i("OtherFragment", "OnCreate was called on the OtherFragment");
-		setRetainInstance(true);
+	}
+	
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) 
+	{
+		super.onViewCreated(view, savedInstanceState);	
+		if (savedInstanceState != null) {
+			shabbosLink = savedInstanceState.getString("link");
+			Log.i(LOG, "savedInstance isn't null");
+		}
+		if (shabbosLink != null) {
+			update();
+		}
 	}
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) 
     {
-
-	    outState.putString("tab", "yourAwesomeFragmentsTab");
-		
         super.onSaveInstanceState(outState);
-        
-
+        outState.putString("link", shabbosLink);
     }
+	
+	public void setShabbosLink(String link)
+	{
+		shabbosLink = link;
+	}
+	
+	public void update()
+	{
+		TextView text = (TextView)getView().findViewById(R.id.shabbosSchedule);
+		text.setText(shabbosLink);
+	}
 }

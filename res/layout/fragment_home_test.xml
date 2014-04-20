@@ -40,7 +40,6 @@
             android:layout_below="@id/nextMinyan_textView"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
-            android:freezesText="true"
             android:gravity="center"
             android:tag="nextMinchaTime1"
             android:textColor="#FFFFFF"
@@ -55,7 +54,6 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/time1_textView"
-            android:freezesText="true"
             android:gravity="center"
             android:tag="nextMinchaInfo1"
             android:text="(Mincha) Glueck Beis"
@@ -69,7 +67,6 @@
             android:layout_below="@id/time1_textView"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:freezesText="true"
             android:gravity="center"
             android:tag="nextMinchaTime2"
             android:text="2:33"
@@ -85,7 +82,6 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
             android:layout_toRightOf="@id/time2_textView"
-            android:freezesText="true"
             android:gravity="center"
             android:tag="nextMinchaInfo2"
             android:text="(Mincha) Room 101"
@@ -118,7 +114,6 @@
             android:layout_below="@id/lastMinyan_textView"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:freezesText="true"
             android:gravity="center"
             android:tag="finalMinyanTime"
             android:text="5:30"
@@ -134,12 +129,11 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
             android:layout_toRightOf="@id/time3_textView"
-            android:freezesText="true"
             android:gravity="center"
             android:tag="finalMinyanInfo"
             android:text="(Mincha) Room 101"
             android:textColor="#FFFFFF"
-            android:textSize="15sp" />
+            android:textSize="24sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -173,7 +167,6 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/last_refresh"
-            android:freezesText="true"
             android:tag="refreshTime"
             android:text="4/3 10:15 PM"
             android:textSize="15sp" />
