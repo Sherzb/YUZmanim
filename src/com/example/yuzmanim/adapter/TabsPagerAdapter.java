@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.yuzmanim.HomeFragment;
 import com.example.yuzmanim.MaarivFragment;
 import com.example.yuzmanim.MinchaFragment;
-import com.example.yuzmanim.OtherFragment;
+import com.example.yuzmanim.OtherFragmentFileTest;
 import com.example.yuzmanim.ShacharisFragment;
 
 /**
@@ -40,7 +40,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 			// Maariv fragment activity
 			return new MaarivFragment();
 		case 4:
-			return new OtherFragment();
+			return new OtherFragmentFileTest();
 		}
 
 		return null;
