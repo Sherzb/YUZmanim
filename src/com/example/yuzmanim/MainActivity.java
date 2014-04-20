@@ -137,6 +137,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			fHome.update();
 			
 			fOther.setShabbosLink("bit.ly/af5dd");
+			fOther.setFakeInfO("BLARGABLARGA");
 			fOther.update();
 		}
 

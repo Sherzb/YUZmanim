@@ -1,10 +1,12 @@
 package com.example.yuzmanim;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Scanner;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,13 +20,14 @@ import android.widget.TextView;
 public class OtherFragmentFileTest extends Fragment {
 
 	private String shabbosLink;
+	private String fakeInfo;
 	public final String LOG = "OtherFragment";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		View rootView = inflater.inflate(R.layout.fragment_other, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_other_test, container, false);
 
 		Log.i("OtherFragment", "OnCreateView was called on the OtherFragment");
 		return rootView;
@@ -55,25 +58,50 @@ public class OtherFragmentFileTest extends Fragment {
 	@Override
 	public void onPause() {
 		super.onPause();
-		String filename = "myfile1";
+		String filename = "myfile9";
 		Context context = getActivity();
-		context.getFileStreamPath(filename);
-		String string = "Hello world!";
-		FileOutputStream outputStream;
-
+		
 		try {
-			outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
-			outputStream.write(string.getBytes());
-			outputStream.close();
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE)));
+			Log.i(LOG, "Did this work...?");
+			writer.write(shabbosLink);
+			writer.newLine();
+			writer.write(fakeInfo);
+			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
 	public void onResume() {
 		super.onResume();
-		String filename = "data/data/com.example.yuzmanim.files.myfile1";
+		Context context = getActivity();
+		if (context.getFileStreamPath("myfile9").exists()) {
+			try {
+				Scanner pass = new Scanner(context.getFileStreamPath("myfile9"));
+				Log.i(LOG, "FOUND THE FILE!");
+				int counter = 0;
+				String[] infoStore = new String[3];
+			    while (pass.hasNextLine()) {
+			    	infoStore[counter] = pass.nextLine();
+			    	counter++;
+			    }
+			    shabbosLink = infoStore[0];
+			    fakeInfo = infoStore[1];
+			    Log.i(LOG, infoStore[1]);
+			    pass.close();
+			} catch (IOException e) {
+			    e.printStackTrace();
+			}
+			update();
+		}
+	}
+
+	/*
+	@Override
+	public void onResume() {
+		super.onResume();
 		Context context = getActivity();
 		if (context.getFileStreamPath("myfile1").exists()) {
 			Log.i(LOG, "FOUND THE FILE!");
@@ -82,8 +110,8 @@ public class OtherFragmentFileTest extends Fragment {
 			    BufferedReader inputReader = new BufferedReader(new InputStreamReader(context.openFileInput("myfile1")));
 			    String inputString;
 			    StringBuffer stringBuffer = new StringBuffer();                
-			    while ((inputString = inputReader.readLine()) != null) {
-			        stringBuffer.append(inputString + "\n");
+			    while ((inputString = inputReader.readLine()) != null) { //Basically while inputReader.readLine() != null
+			        stringBuffer.append(inputString);
 			    }
 			    shabbosLink = stringBuffer.toString();
 			} catch (IOException e) {
@@ -92,15 +120,26 @@ public class OtherFragmentFileTest extends Fragment {
 			update();
 		}
 	}
+	*/
+	
+	
+	
+	
 
 	public void setShabbosLink(String link)
 	{
 		shabbosLink = link;
+	}
+	
+	public void setFakeInfO(String info) {
+		fakeInfo = info;
 	}
 
 	public void update()
 	{
 		TextView text = (TextView)getView().findViewById(R.id.shabbosSchedule);
 		text.setText(shabbosLink);
+		TextView fakeText = (TextView)getView().findViewById(R.id.fakeInfo);
+		fakeText.setText(fakeInfo);
 	}
 }

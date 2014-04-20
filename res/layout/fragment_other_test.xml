@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#33CCFF"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/shabbos_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_corner_bg" >
+
+        <TextView
+            android:id="@+id/shabbos_header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Shabbos Schedule"
+            android:textColor="#FFFFFF"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/shabbosSchedule"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shabbos_header"
+            android:layout_marginTop="5dp"
+            android:autoLink="web"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingLeft="2dp"
+            android:tag="shabbosSchedule"
+            android:text="http://www.yu.edu/uploadedFiles/Student_Life/Living-at-YU/Shabbat-Programming/Wilf_Campus/Tzav-Zachor%202014.pdf"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/fakeInfo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shabbosSchedule"
+            android:gravity="center"
+            android:paddingLeft="2dp"
+            android:tag="fakeInfo"
+            android:text="whatever, is this even displayed?"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</RelativeLayout>
