@@ -123,7 +123,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		MinchaFragment fMinch = (MinchaFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(2));
 		MaarivFragment fMaar = (MaarivFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(3));
 		//OtherFragment fOther = (OtherFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(4));
-		OtherFragmentFileTest fOther = (OtherFragmentFileTest)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(4));
+		OtherFragment fOther = (OtherFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(4));
 
 		//Spinner shacharisSpinner = (Spinner)fShach.getView().findViewWithTag("shacharisSpinner");
 		if (successful) {
