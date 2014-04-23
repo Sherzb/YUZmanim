@@ -1,5 +1,7 @@
 package com.example.yuzmanim;
 
+import java.util.List;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,14 +10,18 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
+
 public class MaarivFragment extends Fragment {
+	
+	private Multimap<String, String> tableMap = LinkedListMultimap.create();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,11 +56,25 @@ public class MaarivFragment extends Fragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		init();
+		update();
 	}
 	
-	public void init() {
-        TableLayout stk = (TableLayout) getView().findViewById(R.id.table_main);
+	public void setTableMap(Multimap<String, String> map) {
+		tableMap = map;
+	}
+	
+	public void update() {
+		
+		TableLayout stk = new TableLayout(getActivity());
+		RelativeLayout.LayoutParams tableParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		tableParams.addRule(RelativeLayout.BELOW, R.id.top);
+		tableParams.addRule(RelativeLayout.INVISIBLE);
+		//tableParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		
+		RelativeLayout border = (RelativeLayout) getView().findViewById(R.id.top);
+		border.addView(stk, tableParams);
+		
+        //TableLayout stk = (TableLayout) getView().findViewById(R.id.table_main);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
         
@@ -78,16 +98,19 @@ public class MaarivFragment extends Fragment {
         tbrow0.addView(tv1);
         
         stk.addView(tbrow0);
-        for (int i = 0; i < 25; i++) {
+        
+        int counter = 0;
+        for (String time : tableMap.keySet()) {
+        	counter++;
             TableRow tbrow = new TableRow(getActivity());
             TextView t1v = new TextView(getActivity());
-            t1v.setText("" + i);
+            t1v.setText(time);
             t1v.setTextColor(Color.BLACK);
             t1v.setGravity(Gravity.CENTER);
             t1v.setTextSize(30);
             
             TextView t2v = new TextView(getActivity());
-            t2v.setText("Product " + i);
+            t2v.setText(   ((List<String>)tableMap.get(time)).get(0)   );
             t2v.setTextColor(Color.BLACK);
             t2v.setGravity(Gravity.CENTER);
             t2v.setTextSize(15);
@@ -99,7 +122,7 @@ public class MaarivFragment extends Fragment {
             r2v.addView(sizeBuffer);
             
             //Sets the background
-            if (i % 2 == 0) {
+            if (counter % 2 == 0) {
             	t1v.setBackgroundResource(R.drawable.table_gray_background);
             	r2v.setBackgroundResource(R.drawable.table_gray_background);
             }

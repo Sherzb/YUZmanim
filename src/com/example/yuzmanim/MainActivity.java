@@ -4,15 +4,14 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.yuzmanim.HomeFragment.OnRefreshSelectedListener;
 import com.example.yuzmanim.adapter.TabsPagerAdapter;
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
 
 /**
  * The YUZmanim app. The framework for the swiping and tabbing (before being modified) was obtained from this website:
@@ -127,6 +126,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		//Spinner shacharisSpinner = (Spinner)fShach.getView().findViewWithTag("shacharisSpinner");
 		if (successful) {
+			//Home Fragment
 			fHome.setNextMinchaTime1("2:33");
 			fHome.setNextMinchaTime2("2:40");
 			fHome.setNextMinchaInfo1("(Mincha) Room 101");
@@ -136,6 +136,28 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			fHome.setRefreshTime();
 			fHome.update();
 			
+			//Maariv Fragment
+			//Need an ordered, duplicate-allowing map. Hello, Guava.
+			String morg = "Morg Beis";
+			String r101 = "Room 101";
+			Multimap<String, String> maarivMap = LinkedListMultimap.create();
+			maarivMap.put("7:26", morg);
+			maarivMap.put("8:10", morg);
+			maarivMap.put("9:00", morg);
+			maarivMap.put("10:00", "Sefardi Beit");
+			maarivMap.put("10:00", "Rubin Shul");
+			maarivMap.put("10:00", "Glueck Beis Yeshiva");
+			maarivMap.put("10:00", morg);
+			maarivMap.put("10:30", morg);
+			maarivMap.put("11:00", morg);
+			maarivMap.put("11:30", morg);
+			maarivMap.put("12:00", morg);
+			maarivMap.put("12:30", morg);
+			fMaar.setTableMap(maarivMap);
+			fMaar.update();
+			
+			
+			//Other Fragment
 			fOther.setShabbosLink("bit.ly/af5dd");
 			fOther.setFakeInfO("BLARGABLARGA");
 			fOther.update();
