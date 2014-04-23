@@ -55,6 +55,9 @@ public class MaarivFragment extends Fragment {
 	
 	public void init() {
         TableLayout stk = (TableLayout) getView().findViewById(R.id.table_main);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        
         TableRow tbrow0 = new TableRow(getActivity());
         
         TextView tv0 = new TextView(getActivity());
@@ -65,12 +68,12 @@ public class MaarivFragment extends Fragment {
         tv0.setPadding(5, 0, 5, 0);
         tbrow0.addView(tv0);
         
+        
         TextView tv1 = new TextView(getActivity());
         tv1.setTextColor(Color.WHITE);
-        tv1.setTextSize(25);
-        tv1.setText("Location");
+        tv1.setTextSize(40);
+        tv1.setText("    Location    ");
         tv1.setBackgroundResource(R.drawable.table_dark_gray_background);
-        tv1.setPadding(5, 0, 5, 0);
         tv1.setGravity(Gravity.CENTER);
         tbrow0.addView(tv1);
         
@@ -94,8 +97,6 @@ public class MaarivFragment extends Fragment {
             sizeBuffer.setText("x"); //Replace x with " " eventually
             sizeBuffer.setTextSize(30);
             r2v.addView(sizeBuffer);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            params.addRule(RelativeLayout.CENTER_VERTICAL);
             
             //Sets the background
             if (i % 2 == 0) {
