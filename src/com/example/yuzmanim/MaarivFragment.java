@@ -1,18 +1,20 @@
 package com.example.yuzmanim;
 
-import java.util.List;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.method.SingleLineTransformationMethod;
-import android.text.method.TransformationMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -25,6 +27,8 @@ import com.google.common.collect.Multimap;
 public class MaarivFragment extends Fragment {
 
 	private Multimap<String, String> tableMap = LinkedListMultimap.create();
+	public final String LOG = "MaarivFragment";
+	public final String FILE_LOCATION = "maariv_fragment_file";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,34 +40,55 @@ public class MaarivFragment extends Fragment {
 		return rootView;
 	}
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		Log.i("MaarivFragment", "OnDestroy was called on the MaarivFragment");
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		Log.i("MaarivFragment", "OnCreate was called on the MaarivFragment");
-		setRetainInstance(true);
-	}
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) 
-	{
-		outState.putString("tab", "yourAwesomeFragmentsTab");	
-		super.onSaveInstanceState(outState);
-	}
-
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-		update();
-	}
-
 	public void setTableMap(Multimap<String, String> map) {
 		tableMap = map;
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		Context context = getActivity();
+
+		try {
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(context.openFileOutput(FILE_LOCATION, Context.MODE_PRIVATE)));
+			Log.i(LOG, "Did this work...?");
+			//Start writing
+			for (String time : tableMap.keySet()) {
+				for (String location : tableMap.get(time)) {
+					writer.write(time + "QQQ");
+					writer.write(location + "QQQ");
+				}
+			}
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		Context context = getActivity();
+		if (context.getFileStreamPath(FILE_LOCATION).exists()) {
+			try {
+				Scanner pass = new Scanner(context.getFileStreamPath(FILE_LOCATION));
+				Log.i(LOG, "FOUND THE FILE!");
+				String[] info = pass.nextLine().split("QQQ");
+				ArrayList<String> arrayInfo = new ArrayList<String>();
+				Multimap<String, String> scannerMap = LinkedListMultimap.create();
+				for (String string : info) {
+					arrayInfo.add(string);
+				}
+				for (int i = 0; i < arrayInfo.size(); i = i + 2) {
+					scannerMap.put(arrayInfo.get(i), arrayInfo.get(i + 1));
+				}
+				tableMap = scannerMap;
+			    pass.close();
+			} catch (IOException e) {
+			    e.printStackTrace();
+			}
+			update();
+		}
 	}
 
 	public void update() {
@@ -75,13 +100,8 @@ public class MaarivFragment extends Fragment {
 
 		TableLayout stk = new TableLayout(getActivity());
 
-		//RelativeLayout border = (RelativeLayout) getView().findViewById(R.id.border); 
-		//border.addView(stk, tableParams);
-
-		//TableLayout stk = (TableLayout) getView().findViewById(R.id.table_main);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		params.addRule(RelativeLayout.CENTER_IN_PARENT);
-		//params.setMargins(2, 2, 2, 2);
 
 		TableRow tbrow0 = new TableRow(getActivity());
 
@@ -108,7 +128,7 @@ public class MaarivFragment extends Fragment {
 			for (String location : tableMap.get(time)) {
 				counter++;
 				TableRow tbrow = new TableRow(getActivity());
-				
+
 				TextView t1v = new TextView(getActivity());
 				t1v.setText(time);
 				t1v.setTextColor(Color.BLACK);
@@ -145,7 +165,7 @@ public class MaarivFragment extends Fragment {
 
 				r1v.addView(t1v, params);
 				tbrow.addView(r1v);
-				
+
 				r2v.addView(t2v, params);
 				tbrow.addView(r2v);
 

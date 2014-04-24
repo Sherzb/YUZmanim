@@ -35,18 +35,6 @@ public class OtherFragment extends Fragment {
 	}
 
 	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		Log.i("OtherFragment", "OnDestroy was called on the OtherFragment");
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		Log.i("OtherFragment", "OnCreate was called on the OtherFragment");
-	}
-
-	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) 
 	{
 		super.onViewCreated(view, savedInstanceState);	
@@ -56,7 +44,7 @@ public class OtherFragment extends Fragment {
 	}
 	
 	/**
-	 * OnPuase is overwritten to save the info to a file. The info is reloaded on onResume. This means that the app will save state
+	 * OnPause is overwritten to save the info to a file. The info is reloaded on onResume. This means that the app will save state
 	 * even across exiting the app, and (hopefully) even after turning off the device.
 	 * Okay, here's how this will work. Starting at //Start writing, we write each piece of info, with a writer.newLine() between
 	 * each one. Not sure why I can't see the line spacing in any text editors, but whatever, I guess...
@@ -90,7 +78,7 @@ public class OtherFragment extends Fragment {
 		Context context = getActivity();
 		if (context.getFileStreamPath(FILE_LOCATION).exists()) {
 			try {
-				Scanner pass = new Scanner(context.getFileStreamPath("myfile9"));
+				Scanner pass = new Scanner(context.getFileStreamPath(FILE_LOCATION));
 				Log.i(LOG, "FOUND THE FILE!");
 				int counter = 0;
 				String[] infoStore = new String[2];
