@@ -144,9 +144,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			maarivMap.put("7:26", morg);
 			maarivMap.put("8:10", morg);
 			maarivMap.put("9:00", morg);
+			maarivMap.put("10:00", "Glueck Beis Yeshiva");
 			maarivMap.put("10:00", "Sefardi Beit");
 			maarivMap.put("10:00", "Rubin Shul");
-			maarivMap.put("10:00", "Glueck Beis Yeshiva");
 			maarivMap.put("10:00", morg);
 			maarivMap.put("10:30", morg);
 			maarivMap.put("11:00", morg);

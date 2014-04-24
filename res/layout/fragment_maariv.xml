@@ -9,8 +9,8 @@
         android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:background="#C68F10">
+        android:background="#33CCFF"
+        android:orientation="vertical" >
 
         <RelativeLayout
             android:id="@+id/top"
@@ -31,13 +31,23 @@
                 android:textSize="50sp" />
         </RelativeLayout>
 
-        <TableLayout
-            android:id="@+id/table_main"
+        <!--
+        <RelativeLayout
+            android:id="@+id/border"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/top"
-            android:layout_centerHorizontal="true" >
-        </TableLayout>
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/top">
+
+            <TableLayout
+                android:id="@+id/table_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"        
+                android:layout_centerHorizontal="true" >
+            </TableLayout>
+        </RelativeLayout>
+        -->
+        
     </RelativeLayout>
 
 </ScrollView>
