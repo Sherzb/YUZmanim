@@ -1,5 +1,7 @@
 package com.example.yuzmanim;
 
+import java.util.ArrayList;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
@@ -22,6 +24,18 @@ import com.google.common.collect.Multimap;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener, OnRefreshSelectedListener
 {
+	private String nextMinchaTime1;
+	private String nextMinchaTime2;
+	private String nextMinchaInfo1;
+	private String nextMinchaInfo2;
+	private String finalMinyanTime;
+	private String finalMinyanInfo;
+	//In case we need to add more, I want to have a variable number of "day types" allowed
+	private ArrayList<Multimap<String, String>> shacharisMaps = new ArrayList<Multimap<String, String>>();
+	private ArrayList<Multimap<String, String>> minchaMaps = new ArrayList<Multimap<String, String>>();
+	private Multimap<String, String> maarivMap;
+	private String shabbosLink;
+		
 	//Viewpager is used to switch between screen with swiping.
 	private ViewPager viewPager;
 	//TabsPagerAdapter controls the flow of the tabs
@@ -55,12 +69,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		for (String tab_name : tabs) {
 			actionBar.addTab(  actionBar.newTab().setText(tab_name).setTabListener(this)   );
 		}
-
-		//Messes with the spinner in the shacharis fragment
-		spinnerSetup();
-		
-		//Really need to get this to work
-		//onRefreshSelected();
 	}
 
 	//The next 3 methods are required by TabListener, which was implemented to add tabs to the ActionBar.
@@ -105,6 +113,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			}
 		});
 	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		setNextMinyanValues();
+	}
 
 	/**
 	 * When the refresh button of HomeFragment is hit, magic happens!
@@ -112,66 +126,113 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 */
 	@Override
 	public void onRefreshSelected() {
-		//MagicMagicMagic
 		Log.i(TAG, "Refresh button registered in MainActivity");
 		boolean successful = true; //No idea how DOM works
 
 		//http://stackoverflow.com/a/9744146
-		HomeFragment fHome = (HomeFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(0));
-		ShacharisFragment fShach = (ShacharisFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(1));
-		MinchaFragment fMinch = (MinchaFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(2));
-		MaarivFragment fMaar = (MaarivFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(3));
-		//OtherFragment fOther = (OtherFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(4));
-		OtherFragment fOther = (OtherFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(4));
+		HomeFragment fHome = getHomehFrag();
+		ShacharisFragment fShach = getShachFrag();
+		MinchaFragment fMinch = getMinchFrag();
+		MaarivFragment fMaar = getMaarFrag();
+		OtherFragment fOther = getOtherFrag();
 
-		//Spinner shacharisSpinner = (Spinner)fShach.getView().findViewWithTag("shacharisSpinner");
 		if (successful) {
+			
+			setFragmentValues();
+			
 			//Home Fragment
-			fHome.setNextMinchaTime1("2:33");
-			fHome.setNextMinchaTime2("2:40");
-			fHome.setNextMinchaInfo1("(Mincha) Room 101");
-			fHome.setNextMinchaInfo2("(Mincha) Gluck Beis");
-			fHome.setFinalMinyanInfo("(Mincha) Zysman Beis");
-			fHome.setFinaltMinyanTime("7:10");
+			fHome.setNextMinchaTime1(nextMinchaTime1);
+			fHome.setNextMinchaTime2(nextMinchaTime2);
+			fHome.setNextMinchaInfo1(nextMinchaInfo1);
+			fHome.setNextMinchaInfo2(nextMinchaInfo2);
+			fHome.setFinalMinyanInfo(finalMinyanInfo);
+			fHome.setFinaltMinyanTime(finalMinyanTime);
 			fHome.setRefreshTime();
 			fHome.update();
 			
 			//Maariv Fragment
-			//Need an ordered, duplicate-allowing map. Hello, Guava.
-			String morg = "Morg Beis";
-			String r101 = "Room 101";
-			Multimap<String, String> maarivMap = LinkedListMultimap.create();
-			maarivMap.put("7:26", morg);
-			maarivMap.put("8:10", morg);
-			maarivMap.put("9:00", morg);
-			maarivMap.put("10:00", "Glueck Beis Yeshiva");
-			maarivMap.put("10:00", "Sefardi Beit");
-			maarivMap.put("10:00", "Rubin Shul");
-			maarivMap.put("10:00", morg);
-			maarivMap.put("10:30", morg);
-			maarivMap.put("11:00", morg);
-			maarivMap.put("11:30", morg);
-			maarivMap.put("12:00", morg);
-			maarivMap.put("12:30", morg);
 			fMaar.setTableMap(maarivMap);
 			fMaar.update();
 			
 			
 			//Other Fragment
-			fOther.setShabbosLink("bit.ly/af5dd");
-			fOther.setFakeInfO("BLARGABLARGA");
+			fOther.setShabbosLink(shabbosLink);
+			fOther.setFakeInfO("fhewuigfiesgfhoes");
 			fOther.update();
 		}
 
 	}
 
-	public void spinnerSetup() 
-	{	
-		//Spinner shacharisSpinner = (Spinner)
-		//mAdapter.getItem(1).getView();
-		//.findViewWithTag("shacharisSpinner");
+	/**
+	 * This is I guess where the internet connection part will go. All that happens here are the assignments of values
+	 * to the String or multimaps in this Activity. Another method handles the updating the fragments.
+	 */
+	private void setFragmentValues()
+	{
+		//Home Fragment
+		nextMinchaTime1 = "2:33";
+		nextMinchaTime2 = "2:40";
+		nextMinchaInfo1 = "(Mincha) Room 101";
+		nextMinchaInfo2 = "(Mincha) Gluck Beis";
+		finalMinyanInfo = "(Mincha) Zysman Beis";
+		finalMinyanTime = "7:10";	
+		
+		//Shacharis Fragment
+		
+		//Mincha Fragment
+		
+		//Maariv Fragment
+		//Need an ordered, duplicate-allowing map. Hello, Guava.
+		String morg = "Morg Beis";
+		String r101 = "Room 101";
+		Multimap<String, String> maarivMap = LinkedListMultimap.create();
+		maarivMap.put("7:26", morg);
+		maarivMap.put("8:10", morg);
+		maarivMap.put("9:00", morg);
+		maarivMap.put("10:00", "Glueck Beis Yeshiva");
+		maarivMap.put("10:00", "Sefardi Beit");
+		maarivMap.put("10:00", "Rubin Shul");
+		maarivMap.put("10:00", morg);
+		maarivMap.put("10:30", morg);
+		maarivMap.put("11:00", morg);
+		maarivMap.put("11:30", morg);
+		maarivMap.put("12:00", morg);
+		maarivMap.put("12:30", morg);
+		this.maarivMap = maarivMap;
+		
+		//Other Fragment
+		shabbosLink = "bit.ly/af5dd";
 	}
-
+	
+	public void setNextMinyanValues()
+	{
+		HomeFragment fHome = getHomehFrag();
+		ShacharisFragment fShach = getShachFrag();
+		MinchaFragment fMinch = getMinchFrag();
+		MaarivFragment fMaar = getMaarFrag();
+		OtherFragment fOther = getOtherFrag();
+	}
+	
+	public HomeFragment getHomehFrag() {
+		return (HomeFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(0));
+	}
+	
+	public ShacharisFragment getShachFrag() {
+		return (ShacharisFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(1));
+	}
+	
+	public MinchaFragment getMinchFrag() {
+		return (MinchaFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(2));
+	}
+	
+	public MaarivFragment getMaarFrag() {
+		return (MaarivFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(3));
+	}
+	
+	public OtherFragment getOtherFrag() {
+		return (OtherFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(4));
+	}
+	
 	private String getFragmentTag(int pos){
 		return "android:switcher:"+R.id.pager+":"+pos;
 	}

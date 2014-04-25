@@ -95,14 +95,13 @@ public class MaarivFragment extends Fragment {
 
 		RelativeLayout tableBorder = new RelativeLayout(getActivity());
 		RelativeLayout.LayoutParams tableParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		tableParams.addRule(RelativeLayout.BELOW, R.id.top);
+		tableParams.addRule(RelativeLayout.BELOW, R.id.all_the_maariv_text);
 		tableParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
 		TableLayout stk = new TableLayout(getActivity());
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		params.addRule(RelativeLayout.CENTER_IN_PARENT);
-
 		TableRow tbrow0 = new TableRow(getActivity());
 
 		TextView tv0 = new TextView(getActivity());

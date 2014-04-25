@@ -1,10 +1,7 @@
 package com.example.yuzmanim;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
@@ -96,34 +93,6 @@ public class OtherFragment extends Fragment {
 			update();
 		}
 	}
-
-	/*
-	@Override
-	public void onResume() {
-		super.onResume();
-		Context context = getActivity();
-		if (context.getFileStreamPath("myfile1").exists()) {
-			Log.i(LOG, "FOUND THE FILE!");
-
-			try {
-			    BufferedReader inputReader = new BufferedReader(new InputStreamReader(context.openFileInput("myfile1")));
-			    String inputString;
-			    StringBuffer stringBuffer = new StringBuffer();                
-			    while ((inputString = inputReader.readLine()) != null) { //Basically while inputReader.readLine() != null
-			        stringBuffer.append(inputString);
-			    }
-			    shabbosLink = stringBuffer.toString();
-			} catch (IOException e) {
-			    e.printStackTrace();
-			}
-			update();
-		}
-	}
-	*/
-	
-	
-	
-	
 
 	public void setShabbosLink(String link)
 	{

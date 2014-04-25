@@ -9,45 +9,51 @@
         android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#33CCFF"
+        android:background="@drawable/full_teal_bg"
         android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/top"
+            android:id="@+id/all_the_maariv_text" 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/square_corner_bg"
-            android:paddingBottom="10dp" >
+            android:background="@drawable/square_corner_bg">
 
-            <TextView
-                android:id="@+id/yuzmanim_textView"
-                android:layout_width="fill_parent"
+            <RelativeLayout
+                android:id="@+id/top"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="17dp"
-                android:background="@drawable/rounded_corner_bg"
-                android:gravity="center"
-                android:text="YUZmanim"
-                android:textColor="#FFFFFF"
-                android:textSize="50sp" />
-        </RelativeLayout>
+                android:paddingBottom="2dp" >
 
-        <!--
-        <RelativeLayout
-            android:id="@+id/border"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/top">
+                <TextView
+                    android:id="@+id/yuzmanim_textView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:background="@drawable/rounded_corner_bg"
+                    android:gravity="center"
+                    android:text="YUZmanim"
+                    android:textColor="#FFFFFF"
+                    android:textSize="50sp" />
+            </RelativeLayout>
 
-            <TableLayout
-                android:id="@+id/table_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"        
-                android:layout_centerHorizontal="true" >
-            </TableLayout>
+            <RelativeLayout
+                android:id="@+id/maariv_relative_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/top"
+                android:paddingBottom="5dp" >
+
+                <TextView
+                    android:id="@+id/maariv_word_view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center"
+                    android:text="Maariv"
+                    android:textColor="#000000"
+                    android:textSize="40sp" />
+            </RelativeLayout>
         </RelativeLayout>
-        -->
-        
     </RelativeLayout>
 
 </ScrollView>
