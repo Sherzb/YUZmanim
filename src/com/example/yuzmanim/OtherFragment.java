@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 public class OtherFragment extends Fragment {
 
-	private String shabbosLink;
-	private String fakeInfo;
+	private String shabbosLink = "";
+	private String fakeInfo = "";
 	public final String LOG = "OtherFragment";
 	public final String FILE_LOCATION = "other_fragment_file";
 
@@ -76,6 +76,10 @@ public class OtherFragment extends Fragment {
 		if (context.getFileStreamPath(FILE_LOCATION).exists()) {
 			try {
 				Scanner pass = new Scanner(context.getFileStreamPath(FILE_LOCATION));
+				if (!pass.hasNext()) {
+					pass.close();
+					return;
+				}
 				Log.i(LOG, "FOUND THE FILE!");
 				int counter = 0;
 				String[] infoStore = new String[2];

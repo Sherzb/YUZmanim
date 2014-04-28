@@ -1,5 +1,10 @@
 package com.example.yuzmanim;
 
+import java.util.ArrayList;
+
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
  
 public class ShacharisFragment extends Fragment {
+	
+	private ArrayList<Multimap<String, String>> shacharisMaps = new ArrayList<Multimap<String, String>>();
  
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,14 +40,7 @@ public class ShacharisFragment extends Fragment {
 		setRetainInstance(true);
 	}
 	
-	@Override
-	public void onSaveInstanceState(Bundle outState) 
-    {
-
-	    outState.putString("tab", "yourAwesomeFragmentsTab");
-		
-        super.onSaveInstanceState(outState);
-        
-
-    }
+	public ArrayList<Multimap<String, String>> getMaps() {
+		return shacharisMaps;
+	}
 }

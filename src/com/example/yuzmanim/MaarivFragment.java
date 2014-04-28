@@ -26,7 +26,7 @@ import com.google.common.collect.Multimap;
 
 public class MaarivFragment extends Fragment {
 
-	private Multimap<String, String> tableMap = LinkedListMultimap.create();
+	private ArrayList<Minyan> minyanTable = new ArrayList<Minyan>();
 	public final String LOG = "MaarivFragment";
 	public final String FILE_LOCATION = "maariv_fragment_file";
 
@@ -40,31 +40,31 @@ public class MaarivFragment extends Fragment {
 		return rootView;
 	}
 
-	public void setTableMap(Multimap<String, String> map) {
-		tableMap = map;
+	public void setmMinyanTable(ArrayList<Minyan> table) {
+		minyanTable = table;
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 		Context context = getActivity();
+		Log.i(LOG, "onPause Called");
 
 		try {
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(context.openFileOutput(FILE_LOCATION, Context.MODE_PRIVATE)));
 			Log.i(LOG, "Did this work...?");
 			//Start writing
-			for (String time : tableMap.keySet()) {
-				for (String location : tableMap.get(time)) {
-					writer.write(time + "QQQ");
-					writer.write(location + "QQQ");
-				}
+			for (Minyan minyan : minyanTable) {
+				Log.i(LOG, "Writing: " + minyan.getTime());
+				writer.write(minyan.getTime() + "QQQ");
+				writer.write(minyan.getLocation() + "QQQ");
 			}
 			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -73,19 +73,25 @@ public class MaarivFragment extends Fragment {
 			try {
 				Scanner pass = new Scanner(context.getFileStreamPath(FILE_LOCATION));
 				Log.i(LOG, "FOUND THE FILE!");
+				if (!pass.hasNext()) {
+					pass.close();
+					return;
+				}
 				String[] info = pass.nextLine().split("QQQ");
 				ArrayList<String> arrayInfo = new ArrayList<String>();
-				Multimap<String, String> scannerMap = LinkedListMultimap.create();
+				ArrayList<Minyan> scannerList = new ArrayList<Minyan>();
 				for (String string : info) {
 					arrayInfo.add(string);
 				}
 				for (int i = 0; i < arrayInfo.size(); i = i + 2) {
-					scannerMap.put(arrayInfo.get(i), arrayInfo.get(i + 1));
+					String time = arrayInfo.get(i);
+					String location = arrayInfo.get(i + 1);
+					scannerList.add(new Minyan(time, location));
 				}
-				tableMap = scannerMap;
-			    pass.close();
+				minyanTable = scannerList;
+				pass.close();
 			} catch (IOException e) {
-			    e.printStackTrace();
+				e.printStackTrace();
 			}
 			update();
 		}
@@ -123,55 +129,57 @@ public class MaarivFragment extends Fragment {
 		stk.addView(tbrow0);
 
 		int counter = 0;
-		for (String time : tableMap.keySet()) {
-			for (String location : tableMap.get(time)) {
-				counter++;
-				TableRow tbrow = new TableRow(getActivity());
+		for (Minyan minyan : minyanTable) {
+			counter++;
+			TableRow tbrow = new TableRow(getActivity());
 
-				TextView t1v = new TextView(getActivity());
-				t1v.setText(time);
-				t1v.setTextColor(Color.BLACK);
-				t1v.setGravity(Gravity.CENTER);
-				t1v.setTextSize(25);
+			TextView t1v = new TextView(getActivity());
+			t1v.setText(minyan.getTime());
+			t1v.setTextColor(Color.BLACK);
+			t1v.setGravity(Gravity.CENTER);
+			t1v.setTextSize(25);
 
-				TextView t2v = new TextView(getActivity());
-				t2v.setText(location);
-				t2v.setTextColor(Color.BLACK);
-				t2v.setGravity(Gravity.CENTER);
-				t2v.setTextSize(25);
+			TextView t2v = new TextView(getActivity());
+			t2v.setText(minyan.getLocation());
+			t2v.setTextColor(Color.BLACK);
+			t2v.setGravity(Gravity.CENTER);
+			t2v.setTextSize(25);
 
-				RelativeLayout r1v = new RelativeLayout(getActivity());
-				TextView sizeBuffer1 = new TextView(getActivity());
-				sizeBuffer1.setText(" ");
-				sizeBuffer1.setTextSize(30);
-				r1v.addView(sizeBuffer1);
+			RelativeLayout r1v = new RelativeLayout(getActivity());
+			TextView sizeBuffer1 = new TextView(getActivity());
+			sizeBuffer1.setText(" ");
+			sizeBuffer1.setTextSize(30);
+			r1v.addView(sizeBuffer1);
 
-				RelativeLayout r2v = new RelativeLayout(getActivity());
-				TextView sizeBuffer2 = new TextView(getActivity());
-				sizeBuffer2.setText(" ");
-				sizeBuffer2.setTextSize(30);
-				r2v.addView(sizeBuffer2);								
+			RelativeLayout r2v = new RelativeLayout(getActivity());
+			TextView sizeBuffer2 = new TextView(getActivity());
+			sizeBuffer2.setText(" ");
+			sizeBuffer2.setTextSize(30);
+			r2v.addView(sizeBuffer2);								
 
-				//Sets the background
-				if (counter % 2 == 0) {
-					r1v.setBackgroundResource(R.drawable.table_gray_background);
-					r2v.setBackgroundResource(R.drawable.table_gray_background);
-				}
-				else {
-					r1v.setBackgroundResource(R.drawable.table_white_background);
-					r2v.setBackgroundResource(R.drawable.table_white_background);
-				}
-
-				r1v.addView(t1v, params);
-				tbrow.addView(r1v);
-
-				r2v.addView(t2v, params);
-				tbrow.addView(r2v);
-
-				stk.addView(tbrow);
+			//Sets the background
+			if (counter % 2 == 0) {
+				r1v.setBackgroundResource(R.drawable.table_gray_background);
+				r2v.setBackgroundResource(R.drawable.table_gray_background);
 			}
-		}
+			else {
+				r1v.setBackgroundResource(R.drawable.table_white_background);
+				r2v.setBackgroundResource(R.drawable.table_white_background);
+			}
+
+			r1v.addView(t1v, params);
+			tbrow.addView(r1v);
+
+			r2v.addView(t2v, params);
+			tbrow.addView(r2v);
+
+			stk.addView(tbrow);
+		}		
 		tableBorder.addView(stk);
 		((RelativeLayout)getView().findViewById(R.id.RelativeLayout1)).addView(tableBorder, tableParams);
+		
+		for (Minyan minyan : minyanTable) {
+			Log.i(LOG, "Updated: " + minyan.getTime());
+		}
 	}
 }
