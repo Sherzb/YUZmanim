@@ -28,13 +28,12 @@
         android:textSize="25sp" />
 
     <Spinner
-        android:tag="shacharisSpinner"
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/shacharis_header"
         android:layout_marginTop="5dp"
-        android:entries="@array/shacharis_days"
-        android:prompt="@string/shacharis_spinner" />
+        android:prompt="@string/shacharis_spinner"
+        android:tag="shacharisSpinner" />
 
 </RelativeLayout>

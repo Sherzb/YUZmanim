@@ -163,12 +163,17 @@ public class HomeFragment extends Fragment {
 		now.setToNow();
 		String AMPM;
 		int hour = now.hour;
+		String minute = "" + now.minute;
 		if (hour > 12) {
 			hour = hour - 12;
 			AMPM = "PM";
 		}
 		else {
 			AMPM = "AM";
+		}
+		
+		if (now.minute < 10) {
+			minute = "0" + minute;
 		}
 		String time = (now.month + 1) + "/" + (now.monthDay) + " " + (hour) + ":" + (now.minute) + " " + AMPM;
 		refreshTime = time;

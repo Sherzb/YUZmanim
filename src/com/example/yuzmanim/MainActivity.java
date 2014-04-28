@@ -133,10 +133,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		super.onResume();
 	}
 
-	/**
-	 * When the refresh button of HomeFragment is hit, magic happens!
-	 * ARIEL ALL THE REFRESH MAGIC HAPPENS HERE!
-	 */
 	@Override
 	public void onRefreshSelected() {
 		//http://stackoverflow.com/a/9744146
@@ -149,9 +145,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		Log.i(TAG, "Refresh button registered in MainActivity");
 
 		if (!isConnected()) { 
-			Toast.makeText(this, R.string.welcome_string, Toast.LENGTH_LONG);
+			Toast.makeText(this, "Cannot Connect to the Internet", Toast.LENGTH_LONG).show();
+			return;
 		}
-
+		
 		setFragmentValues();
 
 		//Home Fragment
@@ -191,6 +188,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		fOther.update();
 
 	}
+	
+	public void update() {
+		
+	}
 
 	/**
 	 * This is I guess where the internet connection part will go. All that happens here are the assignments of values
@@ -198,6 +199,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 */
 	private void setFragmentValues()
 	{
+		Toast.makeText(getBaseContext(), "Updating...", Toast.LENGTH_LONG).show();
 		HttpAsyncTask task = new HttpAsyncTask();
 		task.execute("http://yuzmanim.com/maariv/");
 
@@ -347,6 +349,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		}
 	}
 
+	/**
+	 * Returns true if we can connect, false otherwise.
+	 * @return
+	 */
 	public boolean isConnected(){
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -421,7 +427,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
 		protected void onPostExecute(String result) {
-			Toast.makeText(getBaseContext(), "Received!", Toast.LENGTH_LONG).show();
+			Toast.makeText(getBaseContext(), "Updated!", Toast.LENGTH_LONG).show();
 			Log.i("MainActivity", result);
 			maarivString = result;
 			ArrayList<String> arrayInfo = new ArrayList<String>();
