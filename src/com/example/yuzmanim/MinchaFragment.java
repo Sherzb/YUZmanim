@@ -1,5 +1,7 @@
 package com.example.yuzmanim;
 
+import java.util.ArrayList;
+
 import com.example.yuzmanim.R;
 
 import android.os.Bundle;
@@ -10,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
  
 public class MinchaFragment extends Fragment {
+	
+	private ArrayList<ArrayList<Minyan>> shacharisTables = new ArrayList<ArrayList<Minyan>>();
+	private int spinnerPosition = 0;
  
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

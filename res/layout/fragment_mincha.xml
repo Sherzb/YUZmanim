@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099CC"
-    android:orientation="vertical" >
+    android:background="#33CCFF" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/yuzmanim_textView"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_corner_bg"
+        android:gravity="center"
+        android:text="YUZmanim"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp" />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Mincha Info Goes Here"
-            android:textSize="50sp" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/mincha_header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/yuzmanim_textView"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:tag="minchaHeader"
+        android:text="Mincha"
+        android:textColor="#000000"
+        android:textSize="25sp" />
 
-</ScrollView>
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mincha_header"
+        android:layout_marginTop="5dp"
+        android:prompt="@string/shacharis_spinner"
+        android:tag="minchaSpinner" />
+
+</RelativeLayout>

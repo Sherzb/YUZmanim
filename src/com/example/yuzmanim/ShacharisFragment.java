@@ -19,8 +19,9 @@ import com.google.common.collect.Multimap;
 
 public class ShacharisFragment extends Fragment {
 
-	private ArrayList<Multimap<String, String>> shacharisMaps = new ArrayList<Multimap<String, String>>();
+	private ArrayList<ArrayList<Minyan>> shacharisTables = new ArrayList<ArrayList<Minyan>>();
 	private int spinnerPosition = 0;
+	private boolean startSpinner = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,7 +29,9 @@ public class ShacharisFragment extends Fragment {
 
 		View rootView = inflater.inflate(R.layout.fragment_shacharis, container, false);
 		Log.i("ShacharisFragment", "OnCreateView was called on the ShacharisFragment"); 
-
+		startSpinner = false;
+		Log.i("ShacharisFragment", startSpinner + "");
+		
 		return rootView;
 	}
 
@@ -42,11 +45,6 @@ public class ShacharisFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i("ShacharisFragment", "OnCreate was called on the ShacharisFragment");
-		setRetainInstance(true);
-	}
-
-	public ArrayList<Multimap<String, String>> getMaps() {
-		return shacharisMaps;
 	}
 
 	@Override
@@ -68,10 +66,12 @@ public class ShacharisFragment extends Fragment {
 	public class CustomOnItemSelectedListener implements OnItemSelectedListener {
 
 		public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
-			spinnerPosition = pos;
-			Toast.makeText(parent.getContext(), 
-					"OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString() + " " + spinnerPosition,
-					Toast.LENGTH_SHORT).show();
+			if (spinnerPosition != pos) {
+				spinnerPosition = pos;
+				Toast.makeText(parent.getContext(), 
+						"OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString() + " " + spinnerPosition,
+						Toast.LENGTH_SHORT).show();
+			}
 		}
 
 		@Override
@@ -79,13 +79,13 @@ public class ShacharisFragment extends Fragment {
 			// TODO Auto-generated method stub
 		}
 	}
-	
+
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putInt("spinnerPosition", spinnerPosition);
 	}
-	
+
 	@Override
 	public void onViewStateRestored(Bundle savedInstanceState) {
 		super.onViewStateRestored(savedInstanceState);

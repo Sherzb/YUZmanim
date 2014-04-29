@@ -16,5 +16,9 @@
         <item>Rosh Chodesh</item>
         <item>Fast Day</item>
     </string-array>
+    <string-array name="mincha_days">
+        <item>Regular</item>
+        <item>Sunday</item>
+    </string-array>
 
 </resources>
