@@ -77,7 +77,7 @@ public class MaarivFragment extends Fragment {
 					pass.close();
 					return;
 				}
-				String[] info = pass.nextLine().split("QQQ");
+				String[] info = pass.nextLine().split("QQQ");			
 				ArrayList<String> arrayInfo = new ArrayList<String>();
 				ArrayList<Minyan> scannerList = new ArrayList<Minyan>();
 				for (String string : info) {
@@ -177,9 +177,5 @@ public class MaarivFragment extends Fragment {
 		}		
 		tableBorder.addView(stk);
 		((RelativeLayout)getView().findViewById(R.id.RelativeLayout1)).addView(tableBorder, tableParams);
-		
-		for (Minyan minyan : minyanTable) {
-			Log.i(LOG, "Updated: " + minyan.getTime());
-		}
 	}
 }

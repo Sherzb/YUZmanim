@@ -44,7 +44,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private String finalMinyanInfo;
 	//In case we need to add more, I want to have a variable number of "day types" allowed
 	private ArrayList<Multimap<String, String>> shacharisMaps = new ArrayList<Multimap<String, String>>();
-	private ArrayList<Multimap<String, String>> minchaMaps = new ArrayList<Multimap<String, String>>();
+	private ArrayList<ArrayList<Minyan>> minchaTables = new ArrayList<ArrayList<Minyan>>();
 	private String maarivString;
 	private Multimap<String, String> maarivMap;
 	private ArrayList<Minyan> maarivTable;
@@ -129,11 +129,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	}
 
 	@Override
-	protected void onResume() {
-		super.onResume();
-	}
-
-	@Override
 	public void onRefreshSelected() {
 		//http://stackoverflow.com/a/9744146
 		HomeFragment fHome = getHomehFrag();
@@ -148,7 +143,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			Toast.makeText(this, "Cannot Connect to the Internet", Toast.LENGTH_LONG).show();
 			return;
 		}
-		
+
 		setFragmentValues();
 
 		//Home Fragment
@@ -161,36 +156,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		fHome.setRefreshTime();
 		fHome.update();
 
-		/**
-		//Maariv Fragment
-		ArrayList<String> arrayInfo = new ArrayList<String>();
-		String isNull = "" + (maarivString == null);
-		Log.i("MainActivity", isNull);
-		String[] maarivTimes = maarivString.split("QQQ");
-		ArrayList<Minyan> minyanimForMaariv = new ArrayList<Minyan>();
-		for (String string : maarivTimes) {
-			arrayInfo.add(string);
-		}
-		for (int i = 0; i < arrayInfo.size(); i = i + 2) {
-			String time = arrayInfo.get(i);
-			String location = arrayInfo.get(i + 1);
-			minyanimForMaariv.add(new Minyan(time, location));
-		}
-		maarivTable = minyanimForMaariv;
-		fMaar.setmMinyanTable(maarivTable);
-		fMaar.update();
-		*/
-
-
 		//Other Fragment
 		fOther.setShabbosLink(shabbosLink);
 		fOther.setFakeInfO("fhewuigfiesgfhoes");
 		fOther.update();
 
 	}
-	
+
 	public void update() {
-		
+
 	}
 
 	/**
@@ -200,8 +174,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private void setFragmentValues()
 	{
 		Toast.makeText(getBaseContext(), "Updating...", Toast.LENGTH_LONG).show();
-		HttpAsyncTask task = new HttpAsyncTask();
-		task.execute("http://yuzmanim.com/maariv/");
+		HttpAsyncTask task1 = new HttpAsyncTask();
+		HttpAsyncTask task2 = new HttpAsyncTask();
+		HttpAsyncTask task3 = new HttpAsyncTask();
+		task1.execute("http://yuzmanim.com/maariv/");
+		task2.execute("http://yuzmanim.com/mincha/");
 
 
 
@@ -222,38 +199,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		//Mincha Fragment
 
 		//Maariv Fragment
-		/**
-		String morg = "Morg Beis";
-		String r101 = "Room 101";
-		Multimap<String, String> maarivMap = LinkedListMultimap.create();
-		ArrayList<Minyan> maarivTable = new ArrayList<Minyan>();
-		maarivTable.add(new Minyan("7:26", morg));
-		maarivTable.add(new Minyan("8:10", morg));
-		maarivTable.add(new Minyan("9:00", morg));
-		maarivTable.add(new Minyan("10:00", "Glueck Beis Yeshiva"));
-		maarivTable.add(new Minyan("10:00", "Sefardi Beit"));
-		maarivTable.add(new Minyan("10:00", "Rubin Shul"));
-		maarivTable.add(new Minyan("10:00", morg));
-		maarivTable.add(new Minyan("10:30", morg));
-		maarivTable.add(new Minyan("11:00", morg));
-		maarivTable.add(new Minyan("11:30", morg));
-		maarivTable.add(new Minyan("12:00", morg));
-		maarivTable.add(new Minyan("12:30", morg));
-		maarivMap.put("7:26", morg);
-		maarivMap.put("8:10", morg);
-		maarivMap.put("9:00", morg);
-		maarivMap.put("10:00", "Glueck Beis Yeshiva");
-		maarivMap.put("10:00", "Sefardi Beit");
-		maarivMap.put("10:00", "Rubin Shul");
-		maarivMap.put("10:00", morg);
-		maarivMap.put("10:30", morg);
-		maarivMap.put("11:00", morg);
-		maarivMap.put("11:30", morg);
-		maarivMap.put("12:00", morg);
-		maarivMap.put("12:30", morg);
-		this.maarivMap = maarivMap;
-		this.maarivTable = maarivTable;
-		 */
 
 		//Other Fragment
 		shabbosLink = "bit.ly/af5dd";
@@ -356,70 +301,111 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public boolean isConnected(){
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-		if (networkInfo != null && networkInfo.isConnected()) 
-			return true;
-		else
+		if (networkInfo != null && networkInfo.isConnected()) {
+			return true; 
+		}
+		else {
 			return false;   
+		}
 	}
 
 	public static String GET(String url){
 		InputStream inputStream = null;
 		String result = "";
 		try {
- 
+
 			// create HttpClient
 			HttpClient httpclient = new DefaultHttpClient();
- 
+
 			// make GET request to the given URL
 			HttpResponse httpResponse = httpclient.execute(new HttpGet(url));
- 
+
 			// receive response as inputStream
 			inputStream = httpResponse.getEntity().getContent();
- 
+
 			// convert inputstream to string
 			if(inputStream != null)
-				result = convertInputStreamToString(inputStream);
+				result = convertInputStreamToString(inputStream, url);
 			else
 				result = "Did not work!";
- 
+
 		} catch (Exception e) {
 			Log.d("InputStream", e.getLocalizedMessage());
 		}
- 
+
 		return result;
 	}
- 
-	private static String convertInputStreamToString(InputStream inputStream) throws IOException{
+
+	private static String convertInputStreamToString(InputStream inputStream, String url) throws IOException{
 		BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
 		String line = "";
 		String result = "";
 		while((line = bufferedReader.readLine()) != null)
 			result += line;
- 
+
 		inputStream.close();
-		
-		int startTable = result.indexOf("<td");
-		int endTable = result.indexOf("table>");
-		
-		result = result.substring(startTable, endTable);
-		
-		String table = "";
-		int count = 0;
-		ArrayList<String> tableInfo = new ArrayList<String>();
-		
-		while(result.contains("<td")) {
-			count++;
-			result = result.substring(result.indexOf("<td>") + 4);
-			table += result.substring(0, result.indexOf("</td>")).trim() + " QQQ ";		
-			tableInfo.add(table);
+
+		if (url.contains("maariv")) {
+			int startTable = result.indexOf("<td");
+			int endTable = result.indexOf("table>");
+
+			result = result.substring(startTable, endTable);
+
+			String table = "";
+			int count = 0;
+			ArrayList<String> tableInfo = new ArrayList<String>();
+
+			while(result.contains("<td")) {
+				count++;
+				result = result.substring(result.indexOf("<td>") + 4);
+				table += result.substring(0, result.indexOf("</td>")).trim() + " QQQ ";		
+				tableInfo.add(table);
+			}
+			table = "3" + table;
+			return table;
 		}
-		
-		return table;
- 
+		else if (url.contains("mincha")) {
+			result = result.substring(result.indexOf("<table") + 5);
+			result = result.substring(result.indexOf("<table") + 5);
+			
+			int startTable1 = result.indexOf("<td");
+			int endTable1 = result.indexOf("table>");
+			
+			String table1 = result.substring(startTable1, endTable1);
+			
+			String table2 = result.substring(endTable1);
+			
+			table2 = table2.substring(result.indexOf("<td"));
+			table2 = table2.substring(result.indexOf("<td"));
+			
+			int endTable2 = table2.indexOf("table>");
+			
+			table2 = table2.substring(0, endTable2);
+			
+			String table = "";
+			
+			while(table1.contains("<td")) {
+				table1 = table1.substring(table1.indexOf("<td") + 4);
+				table += table1.substring(0, table1.indexOf("</td")).trim() + "QQQ";		
+			}
+			
+			table += "ZZZ";
+
+			while(table2.contains("<td")) {
+				table2 = table2.substring(table2.indexOf("<td") + 4);
+				table2 = table2.substring(table2.indexOf(">") + 1);
+				table += table2.substring(0, table2.indexOf("</td")).trim() + "QQQ";		
+			}
+			
+			return "2" + table;
+		}
+		else {
+			return "0";
+		}
 	}
 
 	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
-		
+
 		@Override
 		protected String doInBackground(String... urls) { 
 			return GET(urls[0]);
@@ -427,28 +413,49 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
 		protected void onPostExecute(String result) {
-			Toast.makeText(getBaseContext(), "Updated!", Toast.LENGTH_LONG).show();
-			Log.i("MainActivity", result);
-			maarivString = result;
-			ArrayList<String> arrayInfo = new ArrayList<String>();
-			String isNull = "" + (maarivString == null);
-			Log.i("MainActivity", isNull);
-			String[] maarivTimes = maarivString.split("QQQ");
-			ArrayList<Minyan> minyanimForMaariv = new ArrayList<Minyan>();
-			for (String string : maarivTimes) {
-				arrayInfo.add(string);
+			if (result.substring(0,1).equals("3")) {
+				Toast.makeText(getBaseContext(), "Updated!", Toast.LENGTH_LONG).show();
+				Log.i("MainActivity", result);
+				maarivString = result.substring(1, result.length());
+				ArrayList<String> arrayInfo = new ArrayList<String>();
+				String isNull = "" + (maarivString == null);
+				Log.i("MainActivity", isNull);
+				String[] maarivTimes = maarivString.split("QQQ");
+				ArrayList<Minyan> minyanimForMaariv = new ArrayList<Minyan>();
+				for (String string : maarivTimes) {
+					arrayInfo.add(string);
+				}
+				for (int i = 0; i < arrayInfo.size() - 1; i = i + 2) {
+					String location = arrayInfo.get(i);
+					String time = arrayInfo.get(i + 1);
+					minyanimForMaariv.add(new Minyan(time, location));
+					Log.i("MainActivity", time + " " + location);
+				}
+				maarivTable = minyanimForMaariv;
+
+				MaarivFragment fMaar = getMaarFrag();
+				fMaar.setmMinyanTable(maarivTable);
+				fMaar.update();
 			}
-			for (int i = 0; i < arrayInfo.size() - 1; i = i + 2) {
-				String location = arrayInfo.get(i);
-				String time = arrayInfo.get(i + 1);
-				minyanimForMaariv.add(new Minyan(time, location));
-				Log.i("MainActivity", time + " " + location);
+			else if (result.substring(0, 1).equals("2")) {
+				String minchaString = result.substring(1, result.length());
+				String[] allTables = minchaString.split("ZZZ");
+				ArrayList<ArrayList<Minyan>> minyanTables = new ArrayList<ArrayList<Minyan>>();
+				for (int i = allTables.length - 1; i >= 0; i--) {
+					String table = allTables[i];
+					String[] splitTable = table.split("QQQ");
+					ArrayList<Minyan> singleMinyan = new ArrayList<Minyan>();
+					for (int j = 0; j < splitTable.length - 1; j = j + 2) {
+						singleMinyan.add(new Minyan(splitTable[j + 1], splitTable[j]));
+					}
+					minyanTables.add(singleMinyan);
+				}
+				minchaTables = minyanTables;
+				MinchaFragment minchFrag = getMinchFrag();
+				minchFrag.setMinyanTables(minchaTables);
+				minchFrag.update();
+				
 			}
-			maarivTable = minyanimForMaariv;
-			
-			MaarivFragment fMaar = getMaarFrag();
-			fMaar.setmMinyanTable(maarivTable);
-			fMaar.update();
 		}
 	}
 }

@@ -50,7 +50,7 @@ public class ShacharisFragment extends Fragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		Spinner spinner = (Spinner)getView().findViewById(R.id.spinner);
+		Spinner spinner = (Spinner)getView().findViewById(R.id.shacharisSpinner);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
 				R.array.shacharis_days, android.R.layout.simple_spinner_item);
@@ -63,7 +63,7 @@ public class ShacharisFragment extends Fragment {
 		spinner.setSelection(spinnerPosition);
 	}
 
-	public class CustomOnItemSelectedListener implements OnItemSelectedListener {
+	private class CustomOnItemSelectedListener implements OnItemSelectedListener {
 
 		public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
 			if (spinnerPosition != pos) {

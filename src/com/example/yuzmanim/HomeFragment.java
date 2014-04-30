@@ -201,6 +201,8 @@ public class HomeFragment extends Fragment {
 		float nextMinchaInfo1Width = paint.measureText(nextMinchaInfo1);
 		float nextMinchaInfo2Width = paint.measureText(nextMinchaInfo2);
 		float finalMinyanInfoWidth = paint.measureText(this.finalMinyanInfo);
+		float a = paint.measureText("Glueck Beis Yeshiva");
+		Log.i(LOG, "Size: " + a);
 		nextMincha1Info.setTextSize((float)(2664/nextMinchaInfo1Width));
 		nextMincha2Info.setTextSize((float)(2664/nextMinchaInfo1Width));
 		finalMinyanInfo.setTextSize((float)(2664/finalMinyanInfoWidth));

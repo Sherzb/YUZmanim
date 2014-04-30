@@ -3,7 +3,7 @@
     android:id="@+id/scrolleView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_alignParentLeft="true" >
+    android:background="#33CCFF" >
 
     <RelativeLayout
         android:id="@+id/RelativeLayout1"

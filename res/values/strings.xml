@@ -12,7 +12,6 @@
     <string-array name="shacharis_days">
         <item>Regular</item>
         <item>Monday/Thursday</item>
-        <item>Sunday</item>
         <item>Rosh Chodesh</item>
         <item>Fast Day</item>
     </string-array>
