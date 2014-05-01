@@ -14,6 +14,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -25,7 +27,6 @@ import android.widget.Toast;
 
 import com.example.yuzmanim.HomeFragment.OnRefreshSelectedListener;
 import com.example.yuzmanim.adapter.TabsPagerAdapter;
-import com.google.common.collect.Multimap;
 
 /**
  * The YUZmanim app. The framework for the swiping and tabbing (before being modified) was obtained from this website:
@@ -43,10 +44,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private String finalMinyanTime;
 	private String finalMinyanInfo;
 	//In case we need to add more, I want to have a variable number of "day types" allowed
-	private ArrayList<Multimap<String, String>> shacharisMaps = new ArrayList<Multimap<String, String>>();
+	private ArrayList<ArrayList<Minyan>> shacharisTables = new ArrayList<ArrayList<Minyan>>();
 	private ArrayList<ArrayList<Minyan>> minchaTables = new ArrayList<ArrayList<Minyan>>();
-	private String maarivString;
-	private Multimap<String, String> maarivMap;
 	private ArrayList<Minyan> maarivTable;
 	private String shabbosLink;
 
@@ -83,6 +82,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		for (String tab_name : tabs) {
 			actionBar.addTab(  actionBar.newTab().setText(tab_name).setTabListener(this)   );
 		}
+
 	}
 
 	//The next 3 methods are required by TabListener, which was implemented to add tabs to the ActionBar.
@@ -132,6 +132,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void onRefreshSelected() {
 		//http://stackoverflow.com/a/9744146
 		HomeFragment fHome = getHomehFrag();
+		fHome.update();
 		ShacharisFragment fShach = getShachFrag();
 		MinchaFragment fMinch = getMinchFrag();
 		MaarivFragment fMaar = getMaarFrag();
@@ -143,28 +144,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			Toast.makeText(this, "Cannot Connect to the Internet", Toast.LENGTH_LONG).show();
 			return;
 		}
-
 		setFragmentValues();
-
-		//Home Fragment
-		fHome.setNextMinchaTime1(nextMinchaTime1);
-		fHome.setNextMinchaTime2(nextMinchaTime2);
-		fHome.setNextMinchaInfo1(nextMinchaInfo1);
-		fHome.setNextMinchaInfo2(nextMinchaInfo2);
-		fHome.setFinalMinyanInfo(finalMinyanInfo);
-		fHome.setFinaltMinyanTime(finalMinyanTime);
-		fHome.setRefreshTime();
-		fHome.update();
-
-		//Other Fragment
-		fOther.setShabbosLink(shabbosLink);
-		fOther.setFakeInfO("fhewuigfiesgfhoes");
-		fOther.update();
-
-	}
-
-	public void update() {
-
 	}
 
 	/**
@@ -173,18 +153,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 */
 	private void setFragmentValues()
 	{
-		Toast.makeText(getBaseContext(), "Updating...", Toast.LENGTH_LONG).show();
+		Toast.makeText(getBaseContext(), "Updating...", Toast.LENGTH_SHORT).show();
+		lockScreenOrientation();
 		HttpAsyncTask task1 = new HttpAsyncTask();
 		HttpAsyncTask task2 = new HttpAsyncTask();
 		HttpAsyncTask task3 = new HttpAsyncTask();
-		task1.execute("http://yuzmanim.com/maariv/");
+		HttpAsyncTask task4 = new HttpAsyncTask();
+		task1.execute("http://yuzmanim.com/shacharis/");
 		task2.execute("http://yuzmanim.com/mincha/");
-
-
-
-
-
-
+		task3.execute("http://yuzmanim.com/maariv/");
+		task4.execute("http://yuzmanim.com/shabbos/");
+		
 
 		//Home Fragment
 		nextMinchaTime1 = "2:33";
@@ -193,15 +172,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		nextMinchaInfo2 = "(Mincha) Gluck Beis";
 		finalMinyanInfo = "(Mincha) Zysman Beis";
 		finalMinyanTime = "7:10";	
-
-		//Shacharis Fragment
-
-		//Mincha Fragment
-
-		//Maariv Fragment
-
-		//Other Fragment
-		shabbosLink = "bit.ly/af5dd";
 	}
 
 	/**
@@ -345,6 +315,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		inputStream.close();
 
+		//Maariv
 		if (url.contains("maariv")) {
 			int startTable = result.indexOf("<td");
 			int endTable = result.indexOf("table>");
@@ -364,31 +335,32 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			table = "3" + table;
 			return table;
 		}
+		//Mincha
 		else if (url.contains("mincha")) {
 			result = result.substring(result.indexOf("<table") + 5);
 			result = result.substring(result.indexOf("<table") + 5);
-			
+
 			int startTable1 = result.indexOf("<td");
 			int endTable1 = result.indexOf("table>");
-			
+
 			String table1 = result.substring(startTable1, endTable1);
-			
+
 			String table2 = result.substring(endTable1);
-			
+
 			table2 = table2.substring(result.indexOf("<td"));
 			table2 = table2.substring(result.indexOf("<td"));
-			
+
 			int endTable2 = table2.indexOf("table>");
-			
+
 			table2 = table2.substring(0, endTable2);
-			
+
 			String table = "";
-			
+
 			while(table1.contains("<td")) {
 				table1 = table1.substring(table1.indexOf("<td") + 4);
 				table += table1.substring(0, table1.indexOf("</td")).trim() + "QQQ";		
 			}
-			
+
 			table += "ZZZ";
 
 			while(table2.contains("<td")) {
@@ -396,8 +368,94 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				table2 = table2.substring(table2.indexOf(">") + 1);
 				table += table2.substring(0, table2.indexOf("</td")).trim() + "QQQ";		
 			}
-			
+
 			return "2" + table;
+		}
+		//Shacharis
+		else if (url.contains("shacharis")){
+			result = result.substring(result.indexOf("<table") + 5);
+
+			int startTable = result.indexOf("<td");
+			int endTable = result.indexOf("table>");
+
+			result = result.substring(startTable, endTable);
+
+			int count = 0;
+
+			ArrayList<String> locations = new ArrayList<String>();
+
+			ArrayList<String> regular =  new ArrayList<String>();
+			ArrayList<String> mondayThursday =  new ArrayList<String>();
+			ArrayList<String> roshChodesh =  new ArrayList<String>();
+			ArrayList<String> fastDay =  new ArrayList<String>();
+			ArrayList<String> endTime =  new ArrayList<String>();
+
+
+			while(result.contains("<td")) {
+				result = result.substring(result.indexOf("<td") + 3);
+
+				if (!result.substring(0,1).equals(">")) {
+					result = result.substring(result.indexOf(">") + 1);
+				}
+				else {
+					result = "XX" + result.substring(1);
+				}
+
+				String s = result.substring(0, result.indexOf("</td")).trim();
+				if (s.length() == 0) {
+					s = "XX";
+				}
+
+				if (count % 6 == 0) {
+					locations.add(s);
+				}
+				else if (count % 6 == 1) {
+					regular.add(s);
+				}
+				else if (count % 6 == 2) {
+					mondayThursday.add(s);
+				}
+				else if (count % 6 == 3) {
+					roshChodesh.add(s);
+				}
+				else if (count % 6 == 4) {
+					fastDay.add(s);
+				}
+				else if (count % 6 == 5) {
+					endTime.add(s);
+				}		
+				count++;
+			}
+
+			ArrayList<ArrayList<String>> allMinyanim = new ArrayList<ArrayList<String>>();
+			allMinyanim.add(regular);
+			allMinyanim.add(mondayThursday);
+			allMinyanim.add(roshChodesh);
+			allMinyanim.add(fastDay);
+
+			result = "";
+
+			for(ArrayList<String> a: allMinyanim) {
+				for(int i = 0; i < locations.size(); i++) {
+					result += locations.get(i) + "QQQ" + a.get(i) + "QQQ";
+				}
+				result += "ZZZ";
+			}
+
+			return "1" + result;
+		}
+		else if (url.contains("shabbos")) {
+			result = result.substring(result.indexOf("<table") + 5);
+
+			result = result.substring(result.indexOf("<h2>Shabbos"));
+
+			int startUrl = result.indexOf("http");
+			int endUrl = result.indexOf("</p>");
+
+
+			String link = result.substring(startUrl, endUrl);
+
+			return "4" + link;
 		}
 		else {
 			return "0";
@@ -413,10 +471,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
 		protected void onPostExecute(String result) {
+			Log.i("MainActivity", "Result: " + result);
+			if (result.length() == 0) {
+				Toast.makeText(getApplicationContext(), "Error: Internet Connection", Toast.LENGTH_SHORT);
+				Log.i("MainActivity", "Major Failure! Getting the error 'Connection to [url] refused', or s/t like that");
+				return;
+			}
+			//Maariv
 			if (result.substring(0,1).equals("3")) {
-				Toast.makeText(getBaseContext(), "Updated!", Toast.LENGTH_LONG).show();
+				Toast.makeText(getBaseContext(), "Updated Maariv", Toast.LENGTH_SHORT).show();
 				Log.i("MainActivity", result);
-				maarivString = result.substring(1, result.length());
+				String maarivString = result.substring(1, result.length());
 				ArrayList<String> arrayInfo = new ArrayList<String>();
 				String isNull = "" + (maarivString == null);
 				Log.i("MainActivity", isNull);
@@ -437,7 +502,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				fMaar.setmMinyanTable(maarivTable);
 				fMaar.update();
 			}
+			//Mincha
 			else if (result.substring(0, 1).equals("2")) {
+				Toast.makeText(getBaseContext(), "Updated Mincha", Toast.LENGTH_SHORT).show();
 				String minchaString = result.substring(1, result.length());
 				String[] allTables = minchaString.split("ZZZ");
 				ArrayList<ArrayList<Minyan>> minyanTables = new ArrayList<ArrayList<Minyan>>();
@@ -454,8 +521,78 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				MinchaFragment minchFrag = getMinchFrag();
 				minchFrag.setMinyanTables(minchaTables);
 				minchFrag.update();
+
+			}
+			//Shacharis
+			else if (result.substring(0, 1).equals("1")) {
+				Toast.makeText(getBaseContext(), "Updated Shacharis", Toast.LENGTH_SHORT).show();
+				String shacharisString = result.substring(1, result.length());
+				String[] allTables = shacharisString.split("ZZZ");
+				ArrayList<ArrayList<Minyan>> minyanTables = new ArrayList<ArrayList<Minyan>>();
+				for (int i = 0; i < allTables.length; i++) {
+					String table = allTables[i];
+					String[] splitTable = table.split("QQQ");
+					ArrayList<Minyan> singleMinyan = new ArrayList<Minyan>();
+					for (int j = 0; j < splitTable.length - 1; j = j + 2) {
+						singleMinyan.add(new Minyan(splitTable[j + 1], splitTable[j]));
+					}
+					minyanTables.add(singleMinyan);
+				}
+				shacharisTables = minyanTables;
+				ShacharisFragment shachFrag = getShachFrag();
+				Log.i("MainActivity", "" + shachFrag);
+				shachFrag.setMinyanTables(shacharisTables);
+				shachFrag.update();			
+			}
+			else if (result.substring(0,1).equals("4")) {
+				Toast.makeText(getBaseContext(), "Updated Shabbos", Toast.LENGTH_SHORT).show();
+				String shabbosString = result.substring(1, result.length());
+				shabbosLink = shabbosString;
+
+				OtherFragment otherFrag = getOtherFrag();
+				otherFrag.setShabbosLink(shabbosLink);
+				otherFrag.update();
 				
+				unlockScreenOrientation();
+			}
+			else {
+				Log.i("MainActivity", "Error: onPostExecute Failed");
 			}
 		}
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putSerializable("shacharisTables", shacharisTables);
+		outState.putSerializable("minchaTables", minchaTables);
+		outState.putSerializable("maarivTables", maarivTable);
+		outState.putString("shabbosLink", shabbosLink);
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		if (savedInstanceState != null) {
+			shacharisTables = (ArrayList<ArrayList<Minyan>>)savedInstanceState.get("shacharisTables");
+			minchaTables = (ArrayList<ArrayList<Minyan>>)savedInstanceState.get("minchaTables");
+			maarivTable = (ArrayList<Minyan>)savedInstanceState.get("maarivTable");
+			shabbosLink = savedInstanceState.getString("shabbosLink");
+		}
+	}
+	
+	private void lockScreenOrientation() {
+		Log.i("MainActivity", "Locked");
+	    int currentOrientation = getResources().getConfiguration().orientation;
+	    if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    } else {
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+	    }
+	}
+	 
+	private void unlockScreenOrientation() {
+		Log.i("MainActivity", "Unlocked");
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 	}
 }

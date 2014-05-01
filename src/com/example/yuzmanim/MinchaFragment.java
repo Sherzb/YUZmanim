@@ -39,8 +39,7 @@ public class MinchaFragment extends Fragment {
 			Bundle savedInstanceState) {
 
 		View rootView = inflater.inflate(R.layout.fragment_mincha, container, false);
-
-		Log.i("MinchaFragment", "OnCreateView was called on the MinchaFragment");
+		
 		return rootView;
 	}
 
@@ -115,7 +114,6 @@ public class MinchaFragment extends Fragment {
 			String test = "";
 			for (int i = minchaTables.size() - 1; i >= 0; i--) {
 				for (Minyan minyan : minchaTables.get(i)) {
-					Log.i(LOG, "Writing: " + minyan.getTime());
 					writer.write(minyan.getLocation() + "QQQ");
 					writer.write(minyan.getTime() + "QQQ");
 					test = test + minyan.getTime() + "QQQ";

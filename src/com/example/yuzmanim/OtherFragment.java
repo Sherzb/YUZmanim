@@ -17,7 +17,6 @@ import android.widget.TextView;
 public class OtherFragment extends Fragment {
 
 	private String shabbosLink = "";
-	private String fakeInfo = "";
 	public final String LOG = "OtherFragment";
 	public final String FILE_LOCATION = "other_fragment_file";
 
@@ -56,8 +55,6 @@ public class OtherFragment extends Fragment {
 			Log.i(LOG, "Did this work...?");
 			//Start writing
 			writer.write(shabbosLink);
-			writer.newLine();
-			writer.write(fakeInfo);
 			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -88,8 +85,6 @@ public class OtherFragment extends Fragment {
 			    	counter++;
 			    }
 			    shabbosLink = infoStore[0];
-			    fakeInfo = infoStore[1];
-			    Log.i(LOG, infoStore[1]);
 			    pass.close();
 			} catch (IOException e) {
 			    e.printStackTrace();
@@ -102,16 +97,10 @@ public class OtherFragment extends Fragment {
 	{
 		shabbosLink = link;
 	}
-	
-	public void setFakeInfO(String info) {
-		fakeInfo = info;
-	}
 
 	public void update()
 	{
 		TextView text = (TextView)getView().findViewById(R.id.shabbosSchedule);
 		text.setText(shabbosLink);
-		TextView fakeText = (TextView)getView().findViewById(R.id.fakeInfo);
-		fakeText.setText(fakeInfo);
 	}
 }

@@ -194,13 +194,15 @@ public class HomeFragment extends Fragment {
 		nextMincha2Info.setText(nextMinchaInfo2);
 		finalMinyanTime.setText(this.finalMinyanTime);
 		finalMinyanInfo.setText(this.finalMinyanInfo);
+		setRefreshTime();
+		Log.i(LOG, this.refreshTime);
 		refreshTime.setText(this.refreshTime);
 
 		//Adjusts the text size so that it fits exactly a single line. I need new names D:
 		Paint paint = new Paint();
-		float nextMinchaInfo1Width = paint.measureText(nextMinchaInfo1);
-		float nextMinchaInfo2Width = paint.measureText(nextMinchaInfo2);
-		float finalMinyanInfoWidth = paint.measureText(this.finalMinyanInfo);
+		float nextMinchaInfo1Width = paint.measureText(nextMinchaInfo1 + "");
+		float nextMinchaInfo2Width = paint.measureText(nextMinchaInfo2 + "");
+		float finalMinyanInfoWidth = paint.measureText(this.finalMinyanInfo + "");
 		float a = paint.measureText("Glueck Beis Yeshiva");
 		Log.i(LOG, "Size: " + a);
 		nextMincha1Info.setTextSize((float)(2664/nextMinchaInfo1Width));
