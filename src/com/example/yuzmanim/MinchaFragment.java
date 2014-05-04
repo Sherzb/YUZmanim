@@ -255,4 +255,8 @@ public class MinchaFragment extends Fragment {
 	public void setMinyanTables(ArrayList<ArrayList<Minyan>> tables) {
 		minchaTables = tables;
 	}
+	
+	public ArrayList<ArrayList<Minyan>> getMinyanTables() {
+		return minchaTables;
+	}
 }

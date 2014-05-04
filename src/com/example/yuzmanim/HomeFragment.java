@@ -1,11 +1,14 @@
 package com.example.yuzmanim;
 
+import java.security.acl.LastOwnerException;
+
 import android.app.Activity;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +20,10 @@ public class HomeFragment extends Fragment {
 	OnRefreshSelectedListener mCallback;
 	Button mRefreshButton;
 
-	private String nextMinchaTime1;
-	private String nextMinchaTime2;
-	private String nextMinchaInfo1;
-	private String nextMinchaInfo2;
+	private String nextMinyanTime1;
+	private String nextMinyanTime2;
+	private String nextMinyanInfo1;
+	private String nextMinyanInfo2;
 	private String finalMinyanTime;
 	private String finalMinyanInfo;
 	private String refreshTime;
@@ -97,16 +100,16 @@ public class HomeFragment extends Fragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		if (savedInstanceState != null) {
-			nextMinchaTime1 = savedInstanceState.getString("nextMinchaTime1");
-			nextMinchaTime2 = savedInstanceState.getString("nextMinchaTime2");
-			nextMinchaInfo1 = savedInstanceState.getString("nextMinchaInfo1");
-			nextMinchaInfo2 = savedInstanceState.getString("nextMinchaInfo2");
+			nextMinyanTime1 = savedInstanceState.getString("nextMinyanTime1");
+			nextMinyanTime2 = savedInstanceState.getString("nextMinyanTime2");
+			nextMinyanInfo1 = savedInstanceState.getString("nextMinyanInfo1");
+			nextMinyanInfo2 = savedInstanceState.getString("nextMinyanInfo2");
 			finalMinyanInfo = savedInstanceState.getString("finalMinyanInfo");
 			finalMinyanTime = savedInstanceState.getString("finalMinyanTime");
 			refreshTime = savedInstanceState.getString("refreshTime");
 			Log.i("homeFragment", "Not null");
 		}
-		if (nextMinchaInfo1 != null && nextMinchaInfo2 != null && nextMinchaTime1 != null && nextMinchaTime2 != null
+		if (nextMinyanInfo1 != null && nextMinyanInfo2 != null && nextMinyanTime1 != null && nextMinyanTime2 != null
 				&& refreshTime != null && finalMinyanInfo != null && finalMinyanTime != null) {
 			update();
 			Log.i("homeFragment", "Update Called");
@@ -118,10 +121,10 @@ public class HomeFragment extends Fragment {
 	public void onSaveInstanceState(Bundle outState) 
 	{	
 		super.onSaveInstanceState(outState);
-		outState.putString("nextMinchaTime1", nextMinchaTime1);
-		outState.putString("nextMinchaTime2", nextMinchaTime2);
-		outState.putString("nextMinchaInfo1", nextMinchaInfo1);
-		outState.putString("nextMinchaInfo2", nextMinchaInfo2);
+		outState.putString("nextMinyanTime1", nextMinyanTime1);
+		outState.putString("nextMinyanTime2", nextMinyanTime2);
+		outState.putString("nextMinyanInfo1", nextMinyanInfo1);
+		outState.putString("nextMinyanInfo2", nextMinyanInfo2);
 		outState.putString("finalMinyanTime", finalMinyanTime);
 		outState.putString("finalMinyanInfo", finalMinyanInfo);
 		outState.putString("refreshTime", refreshTime);
@@ -133,21 +136,21 @@ public class HomeFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 	}
-
-	public void setNextMinchaTime1(String time) {
-		nextMinchaTime1 = time;
+	
+	public void setNextMinyanTime1(String info) {
+		nextMinyanTime1 = info;
 	}
-
-	public void setNextMinchaTime2(String time) {
-		nextMinchaTime2  = time;
+	
+	public void setNextMinyanTime2(String info) {
+		nextMinyanTime2 = info;
 	}
-
-	public void setNextMinchaInfo1(String info) {
-		nextMinchaInfo1  = info;
+	
+	public void setNextMinyanInfo1(String info) {
+		nextMinyanInfo1 = info;
 	}
-
-	public void setNextMinchaInfo2(String info) {
-		nextMinchaInfo2  = info;
+	
+	public void setNextMinyanInfo2(String info) {
+		nextMinyanInfo2 = info;
 	}
 
 	public void setFinaltMinyanTime(String info) {
@@ -156,6 +159,11 @@ public class HomeFragment extends Fragment {
 
 	public void setFinalMinyanInfo(String info) {
 		finalMinyanInfo = info;
+	}
+	
+	public void setFinalMinyan(String time, String location) {
+		finalMinyanTime = time;
+		finalMinyanInfo = location;
 	}
 
 	public void setRefreshTime() {
@@ -188,10 +196,10 @@ public class HomeFragment extends Fragment {
 		TextView finalMinyanTime = (TextView)getView().findViewWithTag("finalMinyanTime");
 		TextView finalMinyanInfo = (TextView)getView().findViewWithTag("finalMinyanInfo");
 		TextView refreshTime = (TextView)getView().findViewWithTag("refreshTime");
-		nextMincha1View.setText(nextMinchaTime1);
-		nextMincha2View.setText(nextMinchaTime2);
-		nextMincha1Info.setText(nextMinchaInfo1);
-		nextMincha2Info.setText(nextMinchaInfo2);
+		nextMincha1View.setText(nextMinyanTime1);
+		nextMincha2View.setText(nextMinyanTime2);
+		nextMincha1Info.setText(nextMinyanInfo1);
+		nextMincha2Info.setText(nextMinyanInfo2);
 		finalMinyanTime.setText(this.finalMinyanTime);
 		finalMinyanInfo.setText(this.finalMinyanInfo);
 		setRefreshTime();
@@ -200,13 +208,15 @@ public class HomeFragment extends Fragment {
 
 		//Adjusts the text size so that it fits exactly a single line. I need new names D:
 		Paint paint = new Paint();
-		float nextMinchaInfo1Width = paint.measureText(nextMinchaInfo1 + "");
-		float nextMinchaInfo2Width = paint.measureText(nextMinchaInfo2 + "");
+		float nextMinyanInfo1Width = paint.measureText(nextMinyanInfo1 + "");
+		float nextMinyanInfo2Width = paint.measureText(nextMinyanInfo2 + "");
 		float finalMinyanInfoWidth = paint.measureText(this.finalMinyanInfo + "");
 		float a = paint.measureText("Glueck Beis Yeshiva");
 		Log.i(LOG, "Size: " + a);
-		nextMincha1Info.setTextSize((float)(2664/nextMinchaInfo1Width));
-		nextMincha2Info.setTextSize((float)(2664/nextMinchaInfo1Width));
+		nextMincha1Info.setTextSize((float)(2664/nextMinyanInfo1Width));
+		//nextMincha1Info.setGravity(Gravity.CENTER);
+		nextMincha2Info.setTextSize((float)(2664/nextMinyanInfo2Width));
+		//nextMincha2Info.setGravity(Gravity.CENTER);
 		finalMinyanInfo.setTextSize((float)(2664/finalMinyanInfoWidth));
 	}
 }

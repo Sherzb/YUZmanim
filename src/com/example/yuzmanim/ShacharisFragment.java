@@ -194,6 +194,7 @@ public class ShacharisFragment extends Fragment {
 		Paint p = new Paint();
 		if (shacharisTables.size() > spinnerPosition) {
 			for (Minyan minyan : shacharisTables.get(spinnerPosition)) {
+				Log.i(LOG, spinnerPosition + "");
 				counter++;
 				TableRow tbrow = new TableRow(getActivity());
 
@@ -252,5 +253,9 @@ public class ShacharisFragment extends Fragment {
 
 	public void setMinyanTables(ArrayList<ArrayList<Minyan>> tables) {
 		shacharisTables = tables;
+	}
+	
+	public ArrayList<ArrayList<Minyan>> getMinyanTables() {
+		return shacharisTables;
 	}
 }

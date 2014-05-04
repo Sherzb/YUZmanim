@@ -178,4 +178,8 @@ public class MaarivFragment extends Fragment {
 		tableBorder.addView(stk);
 		((RelativeLayout)getView().findViewById(R.id.RelativeLayout1)).addView(tableBorder, tableParams);
 	}
+	
+	public ArrayList<Minyan> getMinyanTable() {
+		return minyanTable;
+	}
 }

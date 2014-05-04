@@ -22,6 +22,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.text.format.Time;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -37,12 +38,7 @@ import com.example.yuzmanim.adapter.TabsPagerAdapter;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener, OnRefreshSelectedListener
 {
-	private String nextMinchaTime1;
-	private String nextMinchaTime2;
-	private String nextMinchaInfo1;
-	private String nextMinchaInfo2;
-	private String finalMinyanTime;
-	private String finalMinyanInfo;
+
 	//In case we need to add more, I want to have a variable number of "day types" allowed
 	private ArrayList<ArrayList<Minyan>> shacharisTables = new ArrayList<ArrayList<Minyan>>();
 	private ArrayList<ArrayList<Minyan>> minchaTables = new ArrayList<ArrayList<Minyan>>();
@@ -131,12 +127,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	@Override
 	public void onRefreshSelected() {
 		//http://stackoverflow.com/a/9744146
-		HomeFragment fHome = getHomehFrag();
-		fHome.update();
-		ShacharisFragment fShach = getShachFrag();
-		MinchaFragment fMinch = getMinchFrag();
-		MaarivFragment fMaar = getMaarFrag();
-		OtherFragment fOther = getOtherFrag();
 
 		Log.i(TAG, "Refresh button registered in MainActivity");
 
@@ -163,25 +153,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		task2.execute("http://yuzmanim.com/mincha/");
 		task3.execute("http://yuzmanim.com/maariv/");
 		task4.execute("http://yuzmanim.com/shabbos/");
-		
-
-		//Home Fragment
-		nextMinchaTime1 = "2:33";
-		nextMinchaTime2 = "2:40";
-		nextMinchaInfo1 = "(Mincha) Room 101";
-		nextMinchaInfo2 = "(Mincha) Gluck Beis";
-		finalMinyanInfo = "(Mincha) Zysman Beis";
-		finalMinyanTime = "7:10";	
 	}
 
-	/**
+
 	public void setNextMinyanValues()
 	{
 		HomeFragment fHome = getHomehFrag();
 		ShacharisFragment fShach = getShachFrag();
 		MinchaFragment fMinch = getMinchFrag();
 		MaarivFragment fMaar = getMaarFrag();
-		OtherFragment fOther = getOtherFrag();
 		Time time = new Time();
 		time.setToNow();
 
@@ -189,24 +169,147 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		if (time.hour > 12) {
 			currentHour = (time.hour - 12) + "";
 		}
+		String currentMinute = "" + time.minute;
+		if (time.minute < 10) {
+			currentMinute = "0"  + currentMinute;
+		}
+		//CurrentTime == time in 12-hour clock
+		//CurrentDay == weekday from 0-6
 
-		String currentTime = currentHour + ":" + time.minute;
+		String currentTime = currentHour + ":" + currentMinute;
 		int currentDay = time.weekDay;
 
-		//If the currentTime is between the second to last and last shacharis. Make sure that it goes weekday, mon/thurs
-		//is second
+		//If the currentTime is between the second to last and last shacharis. Weekday == 1, MonThurs == 2
 		int shachChoice = 0;
 		if (currentDay == 1 || currentDay == 4) {
 			shachChoice = 1;
 		}
-		//First, only dealing with shacharis and mincha
-		Multimap<String, String >shachMaps = getShachFrag().getMaps().get(shachChoice);
-		String lastShachTime = shachMaps.keys().
-		if (time.hour < 12) {
-			if ( ) {}
+
+		//Because mincha tables are opposite on YUZmanim.com
+		int minchChoice = 1;
+		if (currentDay == 0) {
+			minchChoice = 0;
 		}
+
+		//First, only dealing with shacharis and mincha
+		ArrayList<Minyan> shacharisTables = fShach.getMinyanTables().get(shachChoice);
+		ArrayList<Minyan> minchaTables = fMinch.getMinyanTables().get(minchChoice);
+		ArrayList<Minyan> maarivTable = fMaar.getMinyanTable();
+
+		String lastShachTime = "";
+		String lastMinchTime = "";
+		String lastMaarTime = "";
+		
+		String lastShachLocation = "";
+		String lastMinchLocation = "";
+		String lastMaarLocation = "";
+
+		for (int i = shacharisTables.size() - 1; i >= 0; i--) {
+			if (!shacharisTables.get(i).getTime().contains("xx")) {
+				lastShachTime = shacharisTables.get(i).getTime();
+				lastShachLocation = shacharisTables.get(i).getLocation();
+				break;
+			}
+		}
+
+		for (int i = minchaTables.size() - 1; i >= 0; i--) {
+			if (!minchaTables.get(i).getTime().contains("xx")) {
+				lastMinchTime = minchaTables.get(i).getTime();
+				lastMinchLocation = minchaTables.get(i).getLocation();
+				break;
+			}
+		}
+
+		for (int i = maarivTable.size() - 1; i >= 0; i--) {
+			if (!maarivTable.get(i).getTime().contains("xx")) {
+				lastMaarTime = maarivTable.get(i).getTime();
+				lastMaarLocation = maarivTable.get(i).getLocation();
+				break;
+			}
+		}
+
+		if (time.hour < 12 && compareTime(lastShachTime, currentTime) > 0) {     
+			if (compareTime(lastShachTime, currentTime) > 0) { //Next Minyan is Shacharis
+				for (int i = 0; i < fShach.getMinyanTables().size(); i++) {
+					if (compareTime(shacharisTables.get(i).getTime(), currentTime) > 0) { //We found the first time that is after the currentTime
+						fHome.setFinalMinyan(lastShachTime, lastShachLocation);
+						
+						Minyan nextMinyan1 = shacharisTables.get(i);
+						fHome.setNextMinyanTime1(nextMinyan1.getTime());
+						fHome.setNextMinyanInfo1("Shacharis: " + nextMinyan1.getLocation());
+
+						if (shacharisTables.get(i).getTime().equals(lastShachTime)) { //The next minyan is the last shacharis 
+							Minyan nextMinyan2 = minchaTables.get(0);
+							fHome.setNextMinyanTime2(nextMinyan2.getTime());
+							fHome.setNextMinyanInfo2("Mincha: " + nextMinyan2.getLocation());
+						}
+						else { //The next two minyanim are shacharis's
+							Minyan nextMinyan2 = shacharisTables.get(i + 1);								
+							fHome.setNextMinyanTime2(nextMinyan2.getTime());								
+							fHome.setNextMinyanInfo2("Shacharis: " + nextMinyan2.getLocation());
+						}
+						break;
+					}
+				}
+			}
+		}
+
+
+		//Okay, next is mincha/maariv
+		else if (true) {
+			if (compareTime(lastMinchTime, currentTime) > 0 && time.hour > 6) { //Next minyan is mincha
+				for (int i = 0; i < minchaTables.size(); i++) {
+					if (compareTime(minchaTables.get(i).getTime(), currentTime) > 0) { // We found the first time that is after the current time	
+						fHome.setFinalMinyan(lastMinchTime, lastMinchLocation);
+						
+						Minyan nextMinyan1 = minchaTables.get(i);
+						fHome.setNextMinyanTime1(nextMinyan1.getTime());
+						fHome.setNextMinyanInfo1("Mincha: " + nextMinyan1.getLocation());
+
+						if (minchaTables.get(i).getTime().equals(lastMinchTime)) { //Next Mincha is the last mincha
+							Minyan nextMinyan2 = maarivTable.get(0);
+							fHome.setNextMinyanTime2(nextMinyan2.getTime());
+							fHome.setNextMinyanInfo2("Maariv: " + nextMinyan2.getLocation());
+						}
+
+						else { //The next two minyanim are mincha's
+							Minyan nextMinyan2 = minchaTables.get(i + 1);							
+							fHome.setNextMinyanTime2(nextMinyan2.getTime());								
+							fHome.setNextMinyanInfo2("Mincha: " + nextMinyan2.getLocation());
+						}
+						break;
+					}
+				}
+			}
+
+			else { //Next Minyan is maariv
+				for (int i = 0; i < maarivTable.size(); i++) {
+					if (compareTime(maarivTable.get(i).getTime(), currentTime) > 0) { //We found the first time that is after the current time
+						fHome.setFinalMinyan(lastMaarTime, lastMaarLocation);
+						
+						
+						Minyan nextMinyan1 = maarivTable.get(i);
+						fHome.setNextMinyanTime1(nextMinyan1.getTime());
+						fHome.setNextMinyanInfo1("Maariv: " + nextMinyan1.getLocation());
+
+						if (maarivTable.get(i).equals(lastMaarTime)) {//Next maariv is the last maariv
+							Minyan nextMinyan2 = shacharisTables.get(0);
+							fHome.setNextMinyanTime2(nextMinyan2.getTime());
+							fHome.setNextMinyanInfo2("Shacharis: " + nextMinyan2.getLocation());
+						}
+						else { //The next two minyanim are maariv's
+							Minyan nextMinyan2 = maarivTable.get(i + 1);
+							fHome.setNextMinyanTime2(nextMinyan2.getTime());
+							fHome.setNextMinyanInfo2("Maariv: " + nextMinyan2.getLocation());
+						}
+						break;
+					}
+				}
+			}
+		}
+		fHome.update();
 	}
-	 */
+
 
 	public HomeFragment getHomehFrag() {
 		return (HomeFragment)this.getSupportFragmentManager().findFragmentByTag(getFragmentTag(0));
@@ -235,14 +338,21 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	//Returns -1 if first time is earlier than the second, 1 if it's later, 0 if it's the same time
 	public int compareTime(String a, String b) 
 	{
+		if (a.contains("xx")) {
+
+		}
+		else if (b.contains("xx")) {
+
+		}
+
 		String[] aString = a.split(":");
 		String[] bString = b.split(":");
 		Integer[] aParts = new Integer[2];
 		Integer[] bParts = new Integer[2];
-		aParts[0] = Integer.parseInt(aString[0]);
-		aParts[1] = Integer.parseInt(aString[1]);
-		bParts[0] = Integer.parseInt(bString[0]);
-		bParts[1] = Integer.parseInt(bString[1]);
+		aParts[0] = Integer.parseInt(aString[0].trim());
+		aParts[1] = Integer.parseInt(aString[1].trim());
+		bParts[0] = Integer.parseInt(bString[0].trim());
+		bParts[1] = Integer.parseInt(bString[1].trim());
 
 		if (aParts[0].compareTo(bParts[0]) < 0) {
 			return -1;
@@ -552,8 +662,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				OtherFragment otherFrag = getOtherFrag();
 				otherFrag.setShabbosLink(shabbosLink);
 				otherFrag.update();
-				
+
 				unlockScreenOrientation();
+				setNextMinyanValues();
 			}
 			else {
 				Log.i("MainActivity", "Error: onPostExecute Failed");
@@ -561,6 +672,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		}
 	}
 
+	/**
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -580,19 +692,20 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			shabbosLink = savedInstanceState.getString("shabbosLink");
 		}
 	}
-	
+	 */
+
 	private void lockScreenOrientation() {
 		Log.i("MainActivity", "Locked");
-	    int currentOrientation = getResources().getConfiguration().orientation;
-	    if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-	    } else {
-	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-	    }
+		int currentOrientation = getResources().getConfiguration().orientation;
+		if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		} else {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		}
 	}
-	 
+
 	private void unlockScreenOrientation() {
 		Log.i("MainActivity", "Unlocked");
-	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 	}
 }
